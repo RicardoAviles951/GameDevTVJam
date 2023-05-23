@@ -200,7 +200,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.95814025, g: 1, b: 0.39999998, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -384,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869713723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -405,6 +405,7 @@ GameObject:
   - component: {fileID: 1381875636}
   - component: {fileID: 1381875639}
   - component: {fileID: 1381875640}
+  - component: {fileID: 1381875641}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -453,8 +454,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cea222b1dfb312d498bbbd9eaba0c07e, type: 3}
-  m_Color: {r: 0.6264151, g: 1, b: 0.75745577, a: 1}
+  m_Sprite: {fileID: -791177164, guid: cf6446d85dd37d346a2af0a69b011148, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -497,14 +498,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
 --- !u!50 &1381875637
 Rigidbody2D:
@@ -556,7 +557,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1381875640}
         m_TargetAssemblyTypeName: PlayerMovementController, Assembly-CSharp
-        m_MethodName: _move
+        m_MethodName: _Move
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -620,7 +621,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1381875640}
         m_TargetAssemblyTypeName: PlayerMovementController, Assembly-CSharp
-        m_MethodName: _jump
+        m_MethodName: _Jump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -650,13 +651,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jumpforce: 20
+  jumpForce: 20
   groundCheck: {fileID: 869713724}
   fallModifier: 8
-  horizontal: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!95 &1381875641
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381875633}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 55864295fc8b67d4f8aeed5623e521c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1871459243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -686,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4584020938040989980, guid: 3861421d5e777244d8c5db5ae84eef6e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.99
+      value: -0.62
       objectReference: {fileID: 0}
     - target: {fileID: 4584020938040989980, guid: 3861421d5e777244d8c5db5ae84eef6e, type: 3}
       propertyPath: m_LocalPosition.z
