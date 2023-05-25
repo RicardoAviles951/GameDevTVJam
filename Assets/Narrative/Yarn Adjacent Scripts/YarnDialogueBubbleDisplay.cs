@@ -25,6 +25,10 @@ public class YarnDialogueBubbleDisplay : DialogueViewBase
     [Tooltip("margin is 0-1.0 (0.1 means 10% of screen space)... -1 lets dialogue bubbles appear offscreen or get cutoff")]
     public float bubbleMargin = 0.1f;
 
+    //<summary> The below line is to add a normal Line View so that Alverius can speak through that instead of a dialogue bubble
+    public RectTransform normalLineView;
+    public Vector3 offScreenPoint;
+
     void Awake()
     {
         instance = this;
@@ -115,24 +119,42 @@ public class YarnDialogueBubbleDisplay : DialogueViewBase
     // Update is called once per frame
     void Update()
     {
-        if(dialogueBubbleRect.gameObject.activeInHierarchy)
-        {
-            if(speakerCharacter != null)
+        Debug.Log("UPDATING");
+        Debug.Log("SPEAKER CHARACTER IS" + speakerCharacter);
+        /*if(normalLineView.gameObject.activeInHierarchy)
             {
-                dialogueBubbleRect.anchoredPosition = WorldToAnchoredPosition(dialogueBubbleRect, speakerCharacter.positionWithOffset, bubbleMargin);
-            }
-            else
+                if(speakerCharacter != null && speakerCharacter.characterName == "Alverius")
+                    {
+                        dialogueBubbleRect.anchoredPosition = WorldToAnchoredPosition(dialogueBubbleRect, offScreenPoint, bubbleMargin);
+                        normalLineView.anchoredPosition = WorldToAnchoredPosition(normalLineView, speakerCharacter.positionWithOffset, bubbleMargin);
+                    }
+            }*/
+        if(dialogueBubbleRect.gameObject.activeInHierarchy)  
             {
-                dialogueBubbleRect.anchoredPosition = WorldToAnchoredPosition(dialogueBubbleRect, playerCharacter.positionWithOffset, bubbleMargin);
+                if(speakerCharacter != null && speakerCharacter.characterName == "Alverius")
+                    {
+                        dialogueBubbleRect.anchoredPosition = WorldToAnchoredPosition(dialogueBubbleRect, offScreenPoint, bubbleMargin);
+                        normalLineView.anchoredPosition = WorldToAnchoredPosition(normalLineView, speakerCharacter.positionWithOffset, bubbleMargin);
+                    }
+                else if(speakerCharacter != null && speakerCharacter.characterName != "Alverius") 
+                    {
+                        Debug.Log("BOX OVER CHARACTER");
+                        normalLineView.anchoredPosition = WorldToAnchoredPosition(normalLineView, offScreenPoint, bubbleMargin);
+                        dialogueBubbleRect.anchoredPosition = WorldToAnchoredPosition(dialogueBubbleRect, speakerCharacter.positionWithOffset, bubbleMargin);
+                    }
+                else if (speakerCharacter == null)
+                    {
+                        Debug.Log("BOX OVER PLAYER");
+                        normalLineView.anchoredPosition = WorldToAnchoredPosition(normalLineView, offScreenPoint, bubbleMargin);
+                        dialogueBubbleRect.anchoredPosition = WorldToAnchoredPosition(dialogueBubbleRect, playerCharacter.positionWithOffset, bubbleMargin);
+                    }
             }
-        }
 
         if(optionsBubbleRect.gameObject.activeInHierarchy)
         {
             optionsBubbleRect.anchoredPosition = WorldToAnchoredPosition(optionsBubbleRect, playerCharacter.positionWithOffset, bubbleMargin);
         }
-        Debug.Log(allCharacters[0]);
-        Debug.Log(allCharacters[1]);
+
     }
 
 }
