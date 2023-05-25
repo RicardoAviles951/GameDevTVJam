@@ -119,16 +119,6 @@ public class YarnDialogueBubbleDisplay : DialogueViewBase
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("UPDATING");
-        Debug.Log("SPEAKER CHARACTER IS" + speakerCharacter);
-        /*if(normalLineView.gameObject.activeInHierarchy)
-            {
-                if(speakerCharacter != null && speakerCharacter.characterName == "Alverius")
-                    {
-                        dialogueBubbleRect.anchoredPosition = WorldToAnchoredPosition(dialogueBubbleRect, offScreenPoint, bubbleMargin);
-                        normalLineView.anchoredPosition = WorldToAnchoredPosition(normalLineView, speakerCharacter.positionWithOffset, bubbleMargin);
-                    }
-            }*/
         if(dialogueBubbleRect.gameObject.activeInHierarchy)  
             {
                 if(speakerCharacter != null && speakerCharacter.characterName == "Alverius")
