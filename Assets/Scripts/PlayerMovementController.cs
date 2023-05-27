@@ -155,6 +155,7 @@ public class PlayerMovementController : MonoBehaviour
             transform.localScale = selfScale; 
         }
     }
+    
 
   
 }
