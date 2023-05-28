@@ -8,7 +8,8 @@ using Yarn.Unity;
 
 public class YarnDialogueBubbleDisplay : DialogueViewBase
 {
-    public static YarnDialogueBubbleDisplay instance; // very minimal implementation of singleton manager (initialized lazily in Awake)
+    public static YarnDialogueBubbleDisplay instance;
+    public static YarnDialogueBubbleDisplay Instance { get { return instance;  } } // very minimal implementation of singleton manager (initialized lazily in Awake)
     public List<YarnCharacter> allCharacters = new List<YarnCharacter>();
     Camera worldCamera;
 
@@ -31,7 +32,12 @@ public class YarnDialogueBubbleDisplay : DialogueViewBase
 
     void Awake()
     {
-        instance = this;
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else { instance = this; DontDestroyOnLoad(this.gameObject); }
+        
         worldCamera = Camera.main;
     }
 

@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Level Loader 1
+  - Level Loader 2
+  - FireFloor
+  - WaterFloor
+  - AirFloor
+  - EarthFloor
+  - Dialogue System
   layers:
   - Default
   - TransparentFX
