@@ -24,6 +24,17 @@ public class PlayerMoveState : PlayerBaseState
         bool isRunning = player.rb.velocity.x != 0;
         player.animator.SetBool("isRunning", isRunning);
 
+        bool isgoingup = player.rb.velocity.y > 0;
+        player.animator.SetBool("IsGoingUp", isgoingup);
+        if(isGrounded)
+        {
+            player.animator.SetBool("onGround", true);
+        }
+        else 
+        {
+            player.animator.SetBool("onGround", false);
+        }
+
         //This code flips the 2D sprite when running right and left.
         if (isRunning)
         {

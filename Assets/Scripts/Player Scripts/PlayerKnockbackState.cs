@@ -27,6 +27,11 @@ public class PlayerKnockbackState : PlayerBaseState
 
          stateTimer += Time.deltaTime;
 
+
+        if(player.playerHealth.currentHealth <= 0)
+        {
+            player.SwitchState(player.deathState);
+        }
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision2D collision)

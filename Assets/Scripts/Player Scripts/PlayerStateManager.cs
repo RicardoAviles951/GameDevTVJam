@@ -21,20 +21,29 @@ public class PlayerStateManager : MonoBehaviour
     [HideInInspector]
     public Animator animator;
 
+    [HideInInspector]
+    public PlayerHealth playerHealth;
+
     [Header("Move State Variables")]
     public float speed = 10f;
     public float jumpForce = 20.0f;
     public float fallModifier = 6.0f;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    [HideInInspector]
     public float direction;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        playerInput = GetComponent<PlayerInputHandler>();
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        playerInput  = GetComponent<PlayerInputHandler>();
+        rb           = GetComponent<Rigidbody2D>();
+        animator     = GetComponent<Animator>();
+        playerHealth = GetComponent<PlayerHealth>();
+
+
         currentState = moveState;
         currentState.EnterState(this);
     }

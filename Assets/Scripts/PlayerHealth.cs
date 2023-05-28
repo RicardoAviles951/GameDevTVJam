@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] int maxHealth = 10;
-    [SerializeField] int currentHealth;
+    public int currentHealth;
     private Rigidbody2D rb;
     void Awake()
     {
