@@ -6,7 +6,7 @@ public class PlayerDeathState : PlayerBaseState
 {
     public override void EnterState(PlayerStateManager player)
     {
-
+        player.animator.SetBool("IsDefeated", true);
     }
 
     public override void UpdateState(PlayerStateManager player)
