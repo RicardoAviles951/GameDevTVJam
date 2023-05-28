@@ -404,9 +404,10 @@ GameObject:
   - component: {fileID: 1381875637}
   - component: {fileID: 1381875636}
   - component: {fileID: 1381875639}
-  - component: {fileID: 1381875640}
   - component: {fileID: 1381875642}
   - component: {fileID: 1381875641}
+  - component: {fileID: 1381875643}
+  - component: {fileID: 1381875644}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -556,9 +557,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1381875640}
-        m_TargetAssemblyTypeName: PlayerMovementController, Assembly-CSharp
-        m_MethodName: _Move
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -620,9 +621,9 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1381875640}
-        m_TargetAssemblyTypeName: PlayerMovementController, Assembly-CSharp
-        m_MethodName: _Jump
+      - m_Target: {fileID: 1381875643}
+        m_TargetAssemblyTypeName: PlayerStateManager, Assembly-CSharp
+        m_MethodName: _jump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -639,26 +640,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1381875640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381875633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8830cad811fb19c428d9531b01cdac24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  jumpForce: 20
-  groundCheck: {fileID: 869713724}
-  fallModifier: 8
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  isKnocked: 0
 --- !u!95 &1381875641
 Animator:
   serializedVersion: 5
@@ -694,6 +675,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 0
+--- !u!114 &1381875643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381875633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e742fbb33f14f478fa9419722d1035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 0}
+  rb: {fileID: 0}
+  animator: {fileID: 0}
+  speed: 10
+  jumpForce: 20
+  fallModifier: 6
+  groundCheck: {fileID: 869713724}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  direction: 0
+--- !u!114 &1381875644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381875633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f2f1fd8ab04578488bf97539a129d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1871459243
 PrefabInstance:
   m_ObjectHideFlags: 0

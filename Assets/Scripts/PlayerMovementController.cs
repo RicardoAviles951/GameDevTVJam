@@ -12,74 +12,55 @@ public class PlayerMovementController : MonoBehaviour
     [Range(0f, 10f)]
     [SerializeField] private float fallModifier;
 
-    private bool isJumpInputBuffered = false;
     private float jumpInputBufferTime = 0;
     private float jumpBufferTimer = 0;
     private bool buffered, bufferjump;
     private float horizontal;
     private Rigidbody2D rb;
-    private InputAction moveAction, jumpAction;
-    private InputSystem playerControls;
     public LayerMask groundLayer;
     private bool isGrounded = false;
     private Vector3 selfScale;
     private Animator anim;
     void Awake()
     {
-        playerControls = new InputSystem();
+        
         rb = GetComponent<Rigidbody2D>();
         selfScale = transform.localScale;
         anim = GetComponent<Animator>();
     }
     
-    void OnEnable()
-    {
-        //Enables player controls as part of Unity input system.
-        moveAction = playerControls.Player.Move;
-        jumpAction = playerControls.Player.Jump;
-        jumpAction.Enable();
-        moveAction.Enable();
-        moveAction.performed += _Move;
-        jumpAction.performed += _Jump;
-    }
-
-    void OnDisable()
-    {
-        moveAction.Disable();
-        jumpAction.Disable();
-        moveAction.performed -= _Move;
-        jumpAction.performed -= _Jump;
-    }
     // Start is called before the first frame update
     private void Start()
     {
 
     }
 
-    public void _Move(InputAction.CallbackContext context)
+    public void Move(float horizontalMovement)
     {
-        horizontal = context.ReadValue<Vector2>().x;
+        // horizontal = context.ReadValue<Vector2>().x;
+        //Moves player horizontally 
+        rb.velocity = new Vector2(horizontalMovement*speed,rb.velocity.y);
     }
 
-    public void _Jump(InputAction.CallbackContext context)
+    public void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed)
-        {
-            if(isGrounded)
-            {
-                rb.velocity = new Vector2(rb.velocity.x,jumpForce);
-                // selfScale = new Vector3(.5f,1.5f,1);
-                // transform.localScale = selfScale;
-                isGrounded = false;
+        // if(context.performed)
+        // {
+        //     if(isGrounded)
+        //     {
+        //         rb.velocity = new Vector2(rb.velocity.x,jumpForce);
+        //         // selfScale = new Vector3(.5f,1.5f,1);
+        //         // transform.localScale = selfScale;
+        //         isGrounded = false;
                
-            }
-            else
-            {
-                buffered = true;
-            }
-             print("JUMP");
+        //     }
+        //     else
+        //     {
+        //         buffered = true;
+        //     }
+        //      print("JUMP");
             
-        }
+        // }
     }
     // Update is called once per frame
     private void Update()
@@ -130,8 +111,7 @@ public class PlayerMovementController : MonoBehaviour
         // If the raycast hits a ground object, consider the character grounded
         isGrounded = hit.collider != null;
 
-        //Moves player horizontally 
-        rb.velocity = new Vector2(horizontal*speed,rb.velocity.y);
+        
 
         //Applies the buffered input jump
         if(bufferjump)
