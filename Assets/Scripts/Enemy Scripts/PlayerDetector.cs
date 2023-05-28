@@ -40,5 +40,13 @@ public class PlayerDetector : MonoBehaviour
         return false;
     }
 
-    
+    public float hitdirection()
+    {
+        //Cache positions
+            Vector2 playerPos = player.transform.position;
+            Vector2 enemyPos = transform.position;
+
+            float dir = Mathf.Sign(playerPos.x - enemyPos.x);
+            return dir;
+    }
 }

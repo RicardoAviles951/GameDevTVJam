@@ -67,6 +67,11 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
             print("HIT DAMAGE");
         }
 
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerStateManager>().direction = detector.hitdirection();
+        }
+
     }
     #endregion
 
@@ -196,6 +201,11 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
             //selfScale.x = Mathf.Sign(rb.velocity.x);
             transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x),transform.localScale.y, transform.localScale.z);
         }
+    }
+
+    public float SideofPlayer()
+    {
+        return detector.hitdirection();
     }
 
     
