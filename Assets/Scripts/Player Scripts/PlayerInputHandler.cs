@@ -37,7 +37,7 @@ public class PlayerInputHandler : MonoBehaviour
     public float HorizontalInput()
     {
         float moveInputX = moveAction.ReadValue<Vector2>().x;
-        //print(moveInputX);
+        print(moveInputX);
         return moveInputX;
     }
     
