@@ -199,7 +199,7 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
         if (isRunning)
         {
             //selfScale.x = Mathf.Sign(rb.velocity.x);
-            transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x)*2,transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x),transform.localScale.y, transform.localScale.z);
         }
     }
 
