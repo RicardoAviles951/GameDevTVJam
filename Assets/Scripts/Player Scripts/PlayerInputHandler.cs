@@ -37,13 +37,24 @@ public class PlayerInputHandler : MonoBehaviour
     public float HorizontalInput()
     {
         float moveInputX = moveAction.ReadValue<Vector2>().x;
-        print(moveInputX);
+        //print(moveInputX);
         return moveInputX;
     }
     
      public bool JumpInput()
     {
+        print("JUMPED");
         return jumpAction.triggered;
+    }
+
+    public bool JumpInputHeld()
+    {
+        return jumpAction.IsPressed();
+    }
+
+    public bool JumpButtonUp()
+    {
+        return jumpAction.WasReleasedThisFrame();
     }
 
 }

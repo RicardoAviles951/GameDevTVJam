@@ -11,6 +11,11 @@ public class PlayerMoveState : PlayerBaseState
     private bool buffered, bufferjump;
     private bool isGrounded;
 
+    private float jumpTimer = 0;
+    private bool isJumping;
+
+    private float coyoteTimer;
+
     public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("In Move State");
@@ -19,29 +24,38 @@ public class PlayerMoveState : PlayerBaseState
    
     public override void UpdateState(PlayerStateManager player)
     {
-       moveX = player.playerInput.HorizontalInput();
-        //Stores if character is moving horizontally and sets the animator parameter.
-        bool isRunning = player.rb.velocity.x != 0;
-        player.animator.SetBool("isRunning", isRunning);
+        moveX = player.playerInput.HorizontalInput();
+        
 
-        bool isgoingup = player.rb.velocity.y > 0;
-        player.animator.SetBool("IsGoingUp", isgoingup);
+        //Checking the ground
+        RaycastHit2D hit = Physics2D.Raycast(player.groundCheck.position, Vector2.down, 0.1f, player.groundLayer);
+
+        // If the raycast hits a ground object, consider the character grounded
+        isGrounded = hit.collider != null;
+
         if(isGrounded)
         {
+            if(buffered)
+            {
+                jumpInputBufferTime = jumpBufferTimer;
+                jumpBufferTimer = 0;
+                //bufferjump = true;
+                if(jumpInputBufferTime < .2f)
+                {
+                    bufferjump = true;
+                }
+                buffered = false;
+            }
+            coyoteTimer = player.coyoteTime;
             player.animator.SetBool("onGround", true);
         }
         else 
         {
             player.animator.SetBool("onGround", false);
+            coyoteTimer -= Time.deltaTime;
         }
 
-        //This code flips the 2D sprite when running right and left.
-        if (isRunning)
-        {
-            Vector3 scale = player.transform.localScale;
-            scale.x = Mathf.Sign(player.rb.velocity.x);
-            player.transform.localScale = new Vector3(scale.x,player.transform.localScale.y,player.transform.localScale.z);
-        }
+
 
         if(buffered)
         {
@@ -59,40 +73,66 @@ public class PlayerMoveState : PlayerBaseState
         }
 
 
-        //Checking the ground
-        RaycastHit2D hit = Physics2D.Raycast(player.groundCheck.position, Vector2.down, 0.1f, player.groundLayer);
 
-        // If the raycast hits a ground object, consider the character grounded
-        isGrounded = hit.collider != null;
-
-        if(isGrounded && buffered)
-        {
-            jumpInputBufferTime = jumpBufferTimer;
-            jumpBufferTimer = 0;
-            //bufferjump = true;
-            if(jumpInputBufferTime < .2f)
-            {
-                bufferjump = true;
-            }
-            buffered = false;
-        }
-
+        //Single Frame Check
         if (player.playerInput.JumpInput())
         {
-            if(isGrounded)
+            if(coyoteTimer > 0)
             {
+                isJumping = true;
+                jumpTimer = 0;
                 player.rb.velocity = new Vector2(player.rb.velocity.x,player.jumpForce);
+                
                 isGrounded = false;
             }
-            else
+            if(isGrounded == false)
             {
                 buffered = true;
+               
             }
              
         }
 
+        if (player.playerInput.JumpInputHeld() && isJumping)
+        {
+            if (jumpTimer < player.maxJumpTime)
+            {
+                player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpForce);
+                jumpTimer += Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+        if(player.playerInput.JumpInputHeld() == false)
+        {
+            isJumping = false;
+            
+        }
+
+        if(player.playerInput.JumpButtonUp())
+        {
+            coyoteTimer = 0;
+        }
+
+        Debug.Log("Y VEL = " + player.rb.velocity.y);
         
+        //Stores if character is moving horizontally and sets the animator parameter.
+        bool isRunning = player.rb.velocity.x != 0;
+        player.animator.SetBool("isRunning", isRunning);
+
+        //bool isgoingup = player.rb.velocity.y > 0;
+        bool isgoingup = player.rb.velocity.y > 0 && isJumping;
+        player.animator.SetBool("IsGoingUp", isgoingup);
         
+        //This code flips the 2D sprite when running right and left.
+        if (isRunning)
+        {
+            Vector3 scale = player.transform.localScale;
+            scale.x = Mathf.Sign(player.rb.velocity.x);
+            player.transform.localScale = new Vector3(scale.x,player.transform.localScale.y,player.transform.localScale.z);
+        }
         
     }
 
