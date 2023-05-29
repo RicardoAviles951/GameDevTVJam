@@ -1,6 +1,6 @@
 ﻿title: TowerIntro
 tags:
-position: -663,-209
+position: -305,-590
 ---
 Steve: Uh, what's happening?
 Alverius: Aha! Another brave and foolish soul approaches! Greetings! I am Alverius the Wise, and this is my magical tower!
@@ -89,4 +89,36 @@ title: EFEntry
 position: 565,-594
 ---
 
+===
+title: FrankIntro
+position: -545,-590
+---
+Frank: Yo, Steve.
+Steve: Don't say "yo," Frank.
+Frank: Whatever. I got a delivery for you. Address is 1234 Magic Tower Avenue.
+Steve: You made that up.
+Frank: I did not.
+Steve: Yes you did.
+Frank: Just shut up and deliver the pie, man. And be quick about it.
+Steve: Whatever.
+===
+title: FrankTalk1
+position: -541,-412
+---
+Frank: You deliver that pizza?
+===
+title: FrankTalk2
+position: -540,-202
+---
+Frank: You're back. You still have the pizza. Come on, man.
+===
+title: FrankTalk3
+position: -532,14
+---
+Frank: How are you failing at delivering a pizza?
+===
+title: FrankTalk4
+position: -529,227
+---
+Frank: Dude, just deliver the pizza.
 ===

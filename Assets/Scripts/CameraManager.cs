@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.U2D;
 
 public class CameraManager : MonoBehaviour
 {
@@ -13,6 +16,7 @@ public class CameraManager : MonoBehaviour
     [Range(0,2)]
     public int pos = 0;
     private Transform camTransform;
+    private string currentSceneName;
 
 
     private void Awake()
@@ -44,6 +48,17 @@ public class CameraManager : MonoBehaviour
     {
         //Sets camera to proper position based on section
         camTransform.position = new Vector3(camTransform.position.x,cameraAnchors[pos],camTransform.position.z);
-         
+
+        currentSceneName = SceneManager.GetActiveScene().name;
+
+        if(currentSceneName == "KitchenHub")
+        {
+            _camera.gameObject.GetComponent<PixelPerfectCamera>().assetsPPU = 32;
+        } 
+        else if (currentSceneName != "KitchenHub")
+        {
+            _camera.gameObject.GetComponent<PixelPerfectCamera>().assetsPPU = 16;
+        }
+
     }
 }

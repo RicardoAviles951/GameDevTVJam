@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SamTestScene2.unity
     guid: e41d83e89daf7dc4397d9b256883e8ce
+  - enabled: 1
+    path: Assets/Scenes/KitchenHub.unity
+    guid: 40848ab7aa30c964aa00345d694aa8b1
+  - enabled: 1
+    path: Assets/Scenes/LevelPrototype.unity
+    guid: d277f184255454e42a7c686de813c644
   m_configObjects: {}
