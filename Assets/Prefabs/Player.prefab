@@ -310,7 +310,9 @@ MonoBehaviour:
   speed: 10
   jumpForce: 15
   fallModifier: 8
-  maxJumpTime: 0.15
+  maxJumpTime: 0.2
+  slipModifier: 0
+  isSlipping: 0
   coyoteTime: 0.2
   groundCheck: {fileID: 6807337842545930023}
   groundLayer:
