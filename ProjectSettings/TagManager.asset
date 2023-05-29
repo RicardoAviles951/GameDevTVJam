@@ -12,6 +12,7 @@ TagManager:
   - EarthFloor
   - Dialogue System
   - Enemy
+  - FloorCheck
   layers:
   - Default
   - TransparentFX

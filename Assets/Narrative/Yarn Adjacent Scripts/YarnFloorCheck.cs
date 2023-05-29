@@ -5,13 +5,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yarn.Unity;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class YarnFloorCheck : MonoBehaviour
 {
+    private static YarnFloorCheck instance;
+    public static YarnFloorCheck Instance { get { return instance; } }
     public GameObject player;
     public bool usedOnce;
     public DialogueRunner drYarn;
     public string nodeName;
+    private string currentSceneName;
     List<string> fireFloorDialogue = new List<string> {"TowerIntro", "FF1", "FF2", "FF3"};
     List<string> waterFloorDialogue = new List<string> {"WFEntry", "WF1", "WF2", "WF3"};
     List<string> airFloorDialogue = new List<string> {"AFEntry", "AF1", "AF2", "AF3"};
@@ -20,6 +24,12 @@ public class YarnFloorCheck : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else { instance = this; DontDestroyOnLoad(this.gameObject); }
+
         player = GameObject.FindGameObjectWithTag("Player");
         drYarn = GameObject.FindGameObjectWithTag("Dialogue System").GetComponent<DialogueRunner>();
     }
@@ -32,14 +42,14 @@ public class YarnFloorCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        currentSceneName = SceneManager.GetActiveScene().name;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject == player)
         {
-            if (!usedOnce && this.gameObject.tag == "FireFloor")
+            if (!usedOnce && currentSceneName == "PrototypeLevel")
             {
                 if(player.GetComponent<YarnPlayerFloorCheck>().fireFloor == false)
                 {
@@ -69,7 +79,7 @@ public class YarnFloorCheck : MonoBehaviour
                 }
                 player.GetComponent<YarnPlayerFloorCheck>().waterFloor = true;
             }
-            else if (!usedOnce && this.gameObject.tag == "AirFloor")
+           /* else if (!usedOnce && this.gameObject.tag == "AirFloor")
             {
                 if (player.GetComponent<YarnPlayerFloorCheck>().airFloor == false)
                 {
@@ -98,7 +108,7 @@ public class YarnFloorCheck : MonoBehaviour
                     drYarn.StartDialogue(nodeName);
                 }
                 player.GetComponent<YarnPlayerFloorCheck>().earthFloor = true;
-            }
+            }*/
         }
     }
 }

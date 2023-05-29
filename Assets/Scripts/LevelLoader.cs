@@ -10,6 +10,7 @@ public class LevelLoader : MonoBehaviour
     public static LevelLoader Instance { get { return instance; } }
     private string currentSceneName;
     public GameObject player;
+    public GameObject floorCheck;
     
     void Awake()
     {
@@ -22,8 +23,8 @@ public class LevelLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //SceneManager.sceneLoaded += OnSceneLoaded;
         player = GameObject.FindGameObjectWithTag("Player");
+        floorCheck = GameObject.FindGameObjectWithTag("FloorCheck");
     }
 
     // Update is called once per frame
@@ -43,13 +44,16 @@ public class LevelLoader : MonoBehaviour
                 SceneManager.LoadScene("LevelPrototype");
                 player.transform.position = new Vector3(-13,-10.0030003f,0);
                 this.gameObject.transform.position = new Vector3(-1.83000004f,-10.6599998f,0);
+                floorCheck.gameObject.transform.position = new Vector3(-5.3893528f, -10.5200005f, 0);
+            }
+            if(currentSceneName == "LevelPrototype")
+            {
+                SceneManager.LoadScene("KitchenHub");
+                player.transform.position = new Vector3(4.88000011f, -3.6400001f, 0);
+                this.gameObject.transform.position = new Vector3(-1.83000004f, -10.6599998f, 0);
+                floorCheck.gameObject.transform.position = new Vector3(13.2202072f, 4.63999987f, 0);
             }
         }
     }
-
-   /* private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-
-    }*/
     
 }
