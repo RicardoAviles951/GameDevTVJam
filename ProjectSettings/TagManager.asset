@@ -11,6 +11,7 @@ TagManager:
   - AirFloor
   - EarthFloor
   - Dialogue System
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -47,4 +48,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2898705711
+    locked: 0
+  - name: Foreground
+    uniqueID: 3369361825
     locked: 0

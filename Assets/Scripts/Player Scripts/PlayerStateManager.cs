@@ -28,6 +28,9 @@ public class PlayerStateManager : MonoBehaviour
     public float speed = 10f;
     public float jumpForce = 20.0f;
     public float fallModifier = 6.0f;
+    public float maxJumpTime = 1.5f;
+
+    public float coyoteTime = 1.0f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     [HideInInspector]
