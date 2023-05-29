@@ -16,6 +16,8 @@ public class PlayerMoveState : PlayerBaseState
 
     private float coyoteTimer;
 
+    private bool isgoingright = false;
+
     public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("In Move State");
@@ -24,6 +26,8 @@ public class PlayerMoveState : PlayerBaseState
    
     public override void UpdateState(PlayerStateManager player)
     {
+
+        
         moveX = player.playerInput.HorizontalInput();
         
 
@@ -116,7 +120,7 @@ public class PlayerMoveState : PlayerBaseState
             coyoteTimer = 0;
         }
 
-        Debug.Log("Y VEL = " + player.rb.velocity.y);
+        //Debug.Log("Y VEL = " + player.rb.velocity.y);
         
         //Stores if character is moving horizontally and sets the animator parameter.
         bool isRunning = player.rb.velocity.x != 0;
@@ -133,6 +137,23 @@ public class PlayerMoveState : PlayerBaseState
             scale.x = Mathf.Sign(player.rb.velocity.x);
             player.transform.localScale = new Vector3(scale.x,player.transform.localScale.y,player.transform.localScale.z);
         }
+
+        if(player.isSlipping)
+        {
+            player.speed = 5f;
+            if(moveX != 0)
+            {
+                player.slipModifier = 5.0f;
+                player.slipModifier *= moveX;
+            }
+        }
+        else{
+            player.slipModifier = 0;
+            player.speed = 15f;
+        }
+        
+        
+    Debug.Log("move dir "+ moveX);
         
     }
 
@@ -146,8 +167,11 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void FixedUpdateState(PlayerStateManager player)
     {
+
+        
         //Takes in move direction from player input handler
-        player.rb.velocity = new Vector2(moveX*player.speed,player.rb.velocity.y);
+        player.rb.velocity = new Vector2((moveX*player.speed) + player.slipModifier,player.rb.velocity.y);
+
 
         if(bufferjump)
         {
