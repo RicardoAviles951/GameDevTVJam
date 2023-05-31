@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yarn.Unity;
+using UnityEngine.SceneManagement;
 
 
 public class YarnDialogueBubbleDisplay : DialogueViewBase
@@ -125,6 +126,7 @@ public class YarnDialogueBubbleDisplay : DialogueViewBase
     // Update is called once per frame
     void Update()
     {
+        playerCharacter = GameObject.FindGameObjectWithTag("Player").GetComponent<YarnCharacter>();
         if(dialogueBubbleRect.gameObject.activeInHierarchy)  
             {
                 if(speakerCharacter != null && speakerCharacter.characterName == "Alverius")
@@ -152,5 +154,7 @@ public class YarnDialogueBubbleDisplay : DialogueViewBase
         }
 
     }
+
+    
 
 }

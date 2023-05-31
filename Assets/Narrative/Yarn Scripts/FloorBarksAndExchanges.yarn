@@ -2,33 +2,33 @@
 tags:
 position: -304,-590
 ---
-Steve: Uh, what's happening?
+Uh, what's happening?
 Alverius: Aha! Another brave and foolish soul approaches! Greetings! I am Alverius the Wise, and this is my magical tower!
-Steve: ...Okay.
+...Okay.
 Alverius: Many have tried to traverse this terrible tower of terror! But none have succeeded! Will you be the first, adventurer?
-Steve: Yeah, sure. Will I get a good tip?
+Yeah, sure. Will I get a good tip?
 Alverius: Will you...what?
-Steve: Get a good tip? For the pizza? I'm gonna dip if not.
+Get a good tip? For the pizza? I'm gonna dip if not.
 Alverius: The pizza? What're you...oh. Oh! Yes! The pizza! Bring it to me, and I will shower you with riches beyond your wildest dream!
-Steve: Sick.
+Sick.
 ===
 title: FF1
 position: -306,-415
 ---
 Alverius: Ah, you've returned! Will you succeed this time?
-Steve: I mean yeah, probably.
+I mean yeah, probably.
 ===
 title: FF2
 position: -309,-205
 ---
 Alverius: It seems the fire has burned you! Will you dare risk the flames again?
-Steve: I'm already here, so yeah.
+I'm already here, so yeah.
 ===
 title: FF3
 position: -306,16
 ---
 Alverius: Back again to...BEAT the HEAT?! Haha!
-Steve: Please shut up.
+Please shut up.
 ===
 title: WF1
 position: -9,-417
@@ -93,14 +93,39 @@ position: 565,-594
 title: FrankIntro
 position: -545,-590
 ---
+<<declare $yes to false>>
+<<if $yes is true>>
+    <<stop>>
+<<endif>>
 Frank: Yo, Steve.
-Steve: Don't say "yo," Frank.
+<<if $yes is true>>
+    <<stop>>
+<<endif>>
+Don't say "yo," Frank.
+<<if $yes is true>>
+    <<stop>>
+<<endif>>
 Frank: Whatever. I got a delivery for you. Address is 1234 Magic Tower Avenue.
-Steve: You made that up.
+<<if $yes is true>>
+    <<stop>>
+<<endif>>
+You made that up.
+<<if $yes is true>>
+    <<stop>>
+<<endif>>
 Frank: I did not.
-Steve: Yes you did.
+<<if $yes is true>>
+    <<stop>>
+<<endif>>
+Yes you did.
+<<if $yes is true>>
+    <<stop>>
+<<endif>>
 Frank: Just shut up and deliver the pie, man. And be quick about it.
-Steve: Whatever.
+Whatever.
+<<if $yes is true>>
+    <<stop>>
+<<endif>>
 ===
 title: FrankTalk1
 position: -541,-412
@@ -121,4 +146,9 @@ title: FrankTalk4
 position: -529,227
 ---
 Frank: Dude, just deliver the pizza.
+===
+title: DialogueEnd
+position: -336,-823
+---
+<<stop>>
 ===

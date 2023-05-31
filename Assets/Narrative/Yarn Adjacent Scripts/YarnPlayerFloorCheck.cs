@@ -10,10 +10,10 @@ public class YarnPlayerFloorCheck : MonoBehaviour
     private static YarnPlayerFloorCheck instance;
     public static YarnPlayerFloorCheck Instance {get{return instance; } }
     
-    public bool fireFloor;
-    public bool waterFloor;
-    public bool airFloor;
-    public bool earthFloor;
+    public static bool fireFloor;
+    public static bool waterFloor;
+    public static bool airFloor;
+    public static bool earthFloor;
 
     private void Awake()
     {

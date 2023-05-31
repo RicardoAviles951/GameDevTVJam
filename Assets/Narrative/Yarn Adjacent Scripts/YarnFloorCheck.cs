@@ -51,33 +51,33 @@ public class YarnFloorCheck : MonoBehaviour
         {
             if (!usedOnce && currentSceneName == "PrototypeLevel")
             {
-                if(player.GetComponent<YarnPlayerFloorCheck>().fireFloor == false)
+                if(YarnPlayerFloorCheck.fireFloor == false)
                 {
                     nodeName = fireFloorDialogue[0];
                     drYarn.StartDialogue(nodeName);
                 }
-                else if(player.GetComponent<YarnPlayerFloorCheck>().fireFloor == true)
+                else if(YarnPlayerFloorCheck.fireFloor == true)
                 {
                     int randomDialogue = Random.Range(1, 3);
                     nodeName = fireFloorDialogue[randomDialogue];
                     drYarn.StartDialogue(nodeName);
                 }
-                player.GetComponent<YarnPlayerFloorCheck>().fireFloor = true;
+                YarnPlayerFloorCheck.fireFloor = true;
             }
             else if (!usedOnce && this.gameObject.tag == "WaterFloor")
             {
-                if (player.GetComponent<YarnPlayerFloorCheck>().waterFloor == false)
+                if (YarnPlayerFloorCheck.waterFloor == false)
                 {
                     nodeName = waterFloorDialogue[0];
                     drYarn.StartDialogue(nodeName);
                 }
-                else if (player.GetComponent<YarnPlayerFloorCheck>().waterFloor == true)
+                else if (YarnPlayerFloorCheck.waterFloor == true)
                 {
                     int randomDialogue = Random.Range(1, 3);
                     nodeName = waterFloorDialogue[randomDialogue];
                     drYarn.StartDialogue(nodeName);
                 }
-                player.GetComponent<YarnPlayerFloorCheck>().waterFloor = true;
+                YarnPlayerFloorCheck.waterFloor = true;
             }
            /* else if (!usedOnce && this.gameObject.tag == "AirFloor")
             {
