@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Folder/PizzaParlor.uss?fileID=7433441132597879392&amp;guid=254853f3fc28f19498f15a10a0a92e41&amp;type=3#PizzaParlor" />
+    <ui:VisualElement name="PlayerHud" style="flex-grow: 1; flex-direction: column;">
+        <ui:VisualElement name="Top" style="flex-direction: row; flex-grow: 1;">
+            <ui:VisualElement name="Q1" class="container" style="flex-grow: 1;">
+                <ui:VisualElement name="PlayerHealth" style="width: 150px; height: 150px; max-width: 150px; max-height: 150px; min-width: 50px; min-height: 50px; background-image: url(&apos;project://database/Assets/Sprites/ui_health_pizza_strip5.png?fileID=1341859632&amp;guid=4fe24d7be378efb4c95c3b5856280d3d&amp;type=3#health_pizza_0&apos;);" />
+                <ui:VisualElement name="ControlsContainer" style="flex-direction: row;">
+                    <ui:VisualElement name="ControlsIcon" style="background-image: url(&apos;project://database/Assets/Sprites/WASD_UI_Icon.png?fileID=21300000&amp;guid=e8021d651fb5e6740ab42d1707c5959a&amp;type=3#WASD_UI_Icon&apos;);" />
+                    <ui:VisualElement name="ControlsIcon" style="background-image: url(&apos;project://database/Packages/com.unity.inputsystem/InputSystem/Editor/Icons/d_Mouse@2x.png?fileID=2800000&amp;guid=daa9ba527d8a34b218224b8287ce11d3&amp;type=3#d_Mouse@2x&apos;); -unity-background-image-tint-color: rgba(0, 0, 0, 255);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Q2" class="container" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Bottom" style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement name="Q3" class="container" style="flex-grow: 1;" />
+            <ui:VisualElement name="Q4" class="container" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
