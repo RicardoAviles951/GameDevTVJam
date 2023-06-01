@@ -10,6 +10,7 @@ public class PlayerKnockbackState : PlayerBaseState
     {
         Vector2 force = new Vector2(knockbackForce*player.direction,4);
         player.rb.AddForce(force,ForceMode2D.Impulse);
+        //player.animator.SetBool("isGoingUP", false);
         player.animator.SetBool("isDamaged", true);  
     }
 

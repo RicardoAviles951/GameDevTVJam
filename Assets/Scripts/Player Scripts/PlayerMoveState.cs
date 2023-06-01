@@ -16,8 +16,6 @@ public class PlayerMoveState : PlayerBaseState
 
     private float coyoteTimer;
 
-    private bool isgoingright = false;
-
     public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("In Move State");
@@ -26,16 +24,18 @@ public class PlayerMoveState : PlayerBaseState
    
     public override void UpdateState(PlayerStateManager player)
     {
-
+        //Cache inputs
+        bool isJumpInput    = player.playerInput.JumpInput();
+        bool isJumpHeld     = player.playerInput.JumpInputHeld();
+        bool isJumpButtonUp = player.playerInput.JumpButtonUp();
         
         moveX = player.playerInput.HorizontalInput();
+
         
+        //Checks if player is on the ground
+        isGrounded = CheckGround(player);
 
-        //Checking the ground
-        RaycastHit2D hit = Physics2D.Raycast(player.groundCheck.position, Vector2.down, 0.1f, player.groundLayer);
-
-        // If the raycast hits a ground object, consider the character grounded
-        isGrounded = hit.collider != null;
+        
 
         if(isGrounded)
         {
@@ -51,11 +51,9 @@ public class PlayerMoveState : PlayerBaseState
                 buffered = false;
             }
             coyoteTimer = player.coyoteTime;
-            player.animator.SetBool("onGround", true);
         }
         else 
         {
-            player.animator.SetBool("onGround", false);
             coyoteTimer -= Time.deltaTime;
         }
 
@@ -65,21 +63,13 @@ public class PlayerMoveState : PlayerBaseState
         {
             jumpBufferTimer += Time.deltaTime;
         }
-
-         //This code checks if the player is on their way down, if yes then fall faster. If not, fall regularly.
-        if(player.rb.velocity.y < 0)
-        {
-            player.rb.gravityScale = 5.0f + player.fallModifier;
-        }
-        else
-        {
-            player.rb.gravityScale = 5.0f;
-        }
+        FallHandler(player);
+       
 
 
 
         //Single Frame Check
-        if (player.playerInput.JumpInput())
+        if (isJumpInput)
         {
             if(coyoteTimer > 0)
             {
@@ -97,7 +87,7 @@ public class PlayerMoveState : PlayerBaseState
              
         }
 
-        if (player.playerInput.JumpInputHeld() && isJumping)
+        if (isJumpHeld && isJumping)
         {
             if (jumpTimer < player.maxJumpTime)
             {
@@ -109,34 +99,18 @@ public class PlayerMoveState : PlayerBaseState
                 isJumping = false;
             }
         }
-        if(player.playerInput.JumpInputHeld() == false)
+        if(isJumpHeld == false)
         {
             isJumping = false;
             
         }
 
-        if(player.playerInput.JumpButtonUp())
+        if(isJumpButtonUp)
         {
             coyoteTimer = 0;
         }
 
-        //Debug.Log("Y VEL = " + player.rb.velocity.y);
         
-        //Stores if character is moving horizontally and sets the animator parameter.
-        bool isRunning = player.rb.velocity.x != 0;
-        player.animator.SetBool("isRunning", isRunning);
-
-        //bool isgoingup = player.rb.velocity.y > 0;
-        bool isgoingup = player.rb.velocity.y > 0 && isJumping;
-        player.animator.SetBool("IsGoingUp", isgoingup);
-        
-        //This code flips the 2D sprite when running right and left.
-        if (isRunning)
-        {
-            Vector3 scale = player.transform.localScale;
-            scale.x = Mathf.Sign(player.rb.velocity.x);
-            player.transform.localScale = new Vector3(scale.x,player.transform.localScale.y,player.transform.localScale.z);
-        }
 
         if(player.isSlipping)
         {
@@ -151,9 +125,16 @@ public class PlayerMoveState : PlayerBaseState
             player.slipModifier = 0;
             player.speed = 15f;
         }
-        
-        
-    Debug.Log("move dir "+ moveX);
+       
+
+        // Animation parameters
+        UpdateAnimationParameters(player, isGrounded);
+
+        // Flip sprite when running
+        FlipSprite(player);
+
+        // // Slip and speed modifiers
+        // HandleSlip(player, moveX);
         
     }
 
@@ -175,14 +156,129 @@ public class PlayerMoveState : PlayerBaseState
 
         if(bufferjump)
         {
-            player.rb.velocity = new Vector2(player.rb.velocity.x,player.jumpForce);
+            player.rb.velocity = new Vector2(player.rb.velocity.x,player.jumpForce*2);
             bufferjump = false;
         }
 
     }
+
+    private bool CheckGround(PlayerStateManager player)
+    {
+        //Checking the ground
+        RaycastHit2D hit = Physics2D.Raycast(player.groundCheck.position, Vector2.down, 0.1f, player.groundLayer);
+
+        // If the raycast hits a ground object, consider the character grounded
+        return hit.collider != null;
+    }
    
+private void FallHandler(PlayerStateManager player)
+{
+     //This code checks if the player is on their way down, if yes then fall faster. If not, fall regularly.
+    if(player.rb.velocity.y < 0)
+    {
+        player.rb.gravityScale = 5.0f + player.fallModifier;
+    }
+    else
+        {
+            player.rb.gravityScale = 5.0f;
+        }
+ }
+    
+private void HandleJumping(PlayerStateManager player, bool isGrounded, bool isJumpInput, bool isJumpHeld, bool isJumpButtonUp)
+{
+    if (isJumpInput)
+    {
+        if (isGrounded || coyoteTimer > 0)
+        {
+            StartJump(player);
+        }
+        else
+        {
+            buffered = true;
+        }
+    }
+
+    if (isJumpHeld && isJumping)
+    {
+        if (jumpTimer < player.maxJumpTime)
+        {
+            ContinueJump(player);
+        }
+        else
+        {
+            isJumping = false;
+        }
+    }
+
+    if (!isJumpHeld)
+    {
+        isJumping = false;
+    }
+
+    if (isJumpButtonUp)
+    {
+        coyoteTimer = 0;
+    }
 
     
+}
+
+private void StartJump(PlayerStateManager player)
+{
+    isJumping = true;
+    jumpTimer = 0;
+    player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpForce);
+    isGrounded = false;
+}
+
+private void ContinueJump(PlayerStateManager player)
+{
+    player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpForce);
+    jumpTimer += Time.deltaTime;
+}
+
+private void HandleSlip(PlayerStateManager player, float moveX)
+{
+    if (player.isSlipping)
+    {
+        player.speed = 5f;
+
+        if (moveX != 0)
+        {
+            player.slipModifier = 5.0f * moveX;
+        }
+        else
+        {
+            player.slipModifier = 0;
+        }
+    }
+    else
+    {
+        player.slipModifier = 0;
+        player.speed = 15f;
+    }
+}
+
+private void FlipSprite(PlayerStateManager player)
+{
+    if (player.rb.velocity.x != 0)
+    {
+        Vector3 scale = player.transform.localScale;
+        scale.x = Mathf.Sign(player.rb.velocity.x);
+        player.transform.localScale = scale;
+    }
+}
+
+private void UpdateAnimationParameters(PlayerStateManager player, bool isGrounded)
+{
+    bool isRunning = player.rb.velocity.x != 0;
+    player.animator.SetBool("isRunning", isRunning);
+
+    bool isGoingUp = player.rb.velocity.y > 0 && isJumping;
+    player.animator.SetBool("IsGoingUp", isGoingUp);
+
+    player.animator.SetBool("onGround", isGrounded);
+}
 
     
 }
