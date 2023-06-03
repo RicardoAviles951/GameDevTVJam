@@ -6,7 +6,6 @@ public class MoveCamera : MonoBehaviour
 {
     private Camera _cam;
     private CameraManager camManager;
-    [SerializeField] private int section;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,16 +13,15 @@ public class MoveCamera : MonoBehaviour
         camManager = _cam.GetComponent<CameraManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.gameObject.CompareTag("Player"))
         {
-            camManager.pos = section;
+            //Get position of trigger box
+            Vector2 pos = transform.position;
+            //Position variable to collider position
+            camManager.position = new Vector3(pos.x,pos.y, -10);
+            print(transform.position);
         }
     }
     
