@@ -27,26 +27,39 @@ public class PlayerStateManager : MonoBehaviour
     [Header("Move State Variables")]
     public float speed = 10f;
     public float jumpForce = 20.0f;
-    public float fallModifier = 6.0f;
-    public float maxJumpTime = 1.5f;
-    public float slipModifier = 0;
+    public float fallModifier = 8.0f;
+    public float maxJumpTime = 0.2f;
+    public float slipModifier = 5.0f;
+    [HideInInspector]
     public bool isSlipping = false;
 
     public float coyoteTime = 1.0f;
+    public float goombaJumpForce = 20.0f;
     public Transform groundCheck;
+    [HideInInspector]
     public LayerMask groundLayer;
     [HideInInspector]
     public float direction;
+    [HideInInspector]
+    public bool goombaJump = false;
+    [HideInInspector]
+    public Collider2D playerCollider;
 
+    [Header("Knockback State Variables")]
+    public float horizontalKnockbackForce = 10f;
+    public float verticalKnockbackForce = 5.0f;
+    public float stunDuration = 0.5f;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        playerCollider = GetComponent<Collider2D>();
         playerInput  = GetComponent<PlayerInputHandler>();
         rb           = GetComponent<Rigidbody2D>();
         animator     = GetComponent<Animator>();
         playerHealth = GetComponent<PlayerHealth>();
+        groundLayer = LayerMask.GetMask("Ground");
 
 
         currentState = moveState;
@@ -74,6 +87,13 @@ public class PlayerStateManager : MonoBehaviour
         currentState = state;
         state.EnterState(this);
     }
+
+    // void OnDrawGizmos()
+    // {
+    //     Vector3 posR = new Vector3(transform.position.x,transform.position.y - playerCollider.bounds.extents.y+.50f,0);
+    //     Gizmos.DrawCube(posR,new Vector3(.2f,.2f,0));
+        
+    // }
 
 }
 

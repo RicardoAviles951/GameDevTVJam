@@ -13,6 +13,8 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
     private float timer;
     private float time = 2.0f;
     private Animator anim;
+    private Collider2D _collider;
+
 
     #region INTERFACE METHODS
 
@@ -20,6 +22,11 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
     {
         // Implement the behavior for the enemy taking damage
         // ...
+    }
+
+    public void Kill(GameObject self)
+    {
+        Destroy(self);
     }
     #endregion 
     
@@ -30,6 +37,7 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
         patroller = GetComponent<EnemyPatroller>();
         chaser    = GetComponent<ChasePlayer>();
         anim = GetComponent<Animator>();
+        _collider = GetComponent<Collider2D>();
 
         if (detector == null)
         {
@@ -58,19 +66,7 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if collided with an object that implements IDamageable
-        IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
-        if (damageable != null)
-        {
-            // Deal damage to the damageable object
-            damageable.TakeDamage(damage);
-            print("HIT DAMAGE");
-        }
 
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.GetComponent<PlayerStateManager>().direction = detector.hitdirection();
-        }
 
     }
     #endregion
@@ -78,7 +74,7 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
     #region STATE MACHINE METHODS
     protected override void IdleBehavior()
     {
-        print("Currently Idle");
+//        print("Currently Idle");
         //Checking if player nearby
         if(detector.IsPlayerDetected())
         {
@@ -94,7 +90,7 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
 
     protected override void PatrolBehavior()
     {
-        print("Currently patrolling");
+       //print("Currently patrolling");
         //Patrolling
         patroller.Patrol();
         //Checking if player in range
@@ -107,7 +103,7 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
 
     protected override void ChaseBehavior()
     {
-        print("Currently Chasing");
+//        print("Currently Chasing");
         if(chaser.isPlayerAttackable()) // Checks if player is in attack range
         {
             currentState = EnemyState.Attack;
@@ -203,10 +199,13 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
         }
     }
 
-    public float SideofPlayer()
-    {
-        return detector.hitdirection();
-    }
+    // void OnDrawGizmos()
+    // {
+    //    Vector3 posR = new Vector3(_collider.bounds.max.x,_collider.bounds.max.y,0);
+    //     Gizmos.DrawCube(posR,new Vector3(.2f,.2f,0));
+    //     Vector3 posL = new Vector3(_collider.bounds.min.x,_collider.bounds.max.y,0);
+    //     Gizmos.DrawCube(posL,new Vector3(.2f,.2f,0));
+    // }
 
     
 }

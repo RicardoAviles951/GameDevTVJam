@@ -5,21 +5,17 @@ using UnityEngine;
 public class PlayerKnockbackState : PlayerBaseState
 {
     float stateTimer = 0;
-    float knockbackForce = 10.0f;
     public override void EnterState(PlayerStateManager player)
-    {
-        Vector2 force = new Vector2(knockbackForce*player.direction,4);
+    {   
+        Vector2 force = new Vector2(player.horizontalKnockbackForce*player.direction,player.verticalKnockbackForce);
         player.rb.AddForce(force,ForceMode2D.Impulse);
-        //player.animator.SetBool("isGoingUP", false);
         player.animator.SetBool("isDamaged", true);  
     }
 
     public override void UpdateState(PlayerStateManager player)
     {
-        
-       
 
-        if(stateTimer >= .50f)
+        if(stateTimer >= player.stunDuration)
         {   
             stateTimer = 0;
             player.SwitchState(player.moveState);

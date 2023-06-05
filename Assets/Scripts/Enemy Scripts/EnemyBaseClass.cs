@@ -4,11 +4,12 @@ using UnityEngine;
 
 public abstract class EnemyBaseClass : MonoBehaviour
 {
-    [SerializeField] protected int damage;
+    public int damage;
     [SerializeField] protected int maxHP;
     [SerializeField] protected float moveSpeed;
     protected Rigidbody2D rb;
     protected int currentHP;
+    protected bool isStomped;
 
     public enum EnemyState
     {

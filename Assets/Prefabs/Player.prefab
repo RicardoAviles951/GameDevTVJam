@@ -221,6 +221,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e4e93324-058a-4a8f-843f-49f892b3d438
     m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/w,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5ed8c93f-d064-47c4-b97d-0960016f3936
+    m_ActionName: Player/Reset[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -238,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97551676b79bb3b499244d45862b23f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 4
   currentHealth: 0
 --- !u!95 &6807337840927397794
 Animator:
@@ -296,7 +300,7 @@ MonoBehaviour:
   jumpForce: 15
   fallModifier: 8
   maxJumpTime: 0.2
-  slipModifier: 0
+  slipModifier: 5
   isSlipping: 0
   coyoteTime: 0.2
   groundCheck: {fileID: 6807337842545930023}
@@ -304,6 +308,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   direction: 0
+  goombaJump: 0
+  playerCollider: {fileID: 0}
+  horizontalKnockbackForce: 10
+  verticalKnockbackForce: 5
+  stunDuration: 0.5
 --- !u!114 &6807337840927397797
 MonoBehaviour:
   m_ObjectHideFlags: 0

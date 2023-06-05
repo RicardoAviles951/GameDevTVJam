@@ -1334,6 +1334,10 @@ PrefabInstance:
       propertyPath: m_UsedByEffector
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6807337840927397793, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
+      propertyPath: maxHealth
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6807337840927397798, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
       propertyPath: speed
       value: 15
@@ -2335,13 +2339,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4183802718719470403, guid: 0b1fffafd0171b84ca14a3ff11233db3, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4183802718719470410, guid: 0b1fffafd0171b84ca14a3ff11233db3, type: 3}
       propertyPath: m_Name
       value: TrashEnemy (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4183802718719470410, guid: 0b1fffafd0171b84ca14a3ff11233db3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4183802718719470429, guid: 0b1fffafd0171b84ca14a3ff11233db3, type: 3}
       propertyPath: m_RootOrder
@@ -2724,13 +2732,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4183802718719470403, guid: 0b1fffafd0171b84ca14a3ff11233db3, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4183802718719470410, guid: 0b1fffafd0171b84ca14a3ff11233db3, type: 3}
       propertyPath: m_Name
       value: TrashEnemy (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4183802718719470410, guid: 0b1fffafd0171b84ca14a3ff11233db3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4183802718719470429, guid: 0b1fffafd0171b84ca14a3ff11233db3, type: 3}
       propertyPath: m_RootOrder

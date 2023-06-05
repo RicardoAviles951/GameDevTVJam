@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerHealth : MonoBehaviour, IDamageable
+public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] int maxHealth = 10;
+    [SerializeField] int maxHealth = 4;
     public int currentHealth;
     private Rigidbody2D rb;
     
@@ -23,7 +23,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
+        if(currentHealth > 0)
+        {
+            currentHealth -= damage;
+        }
         damageTaken?.Invoke(damage);
+        
     }
+
 }
