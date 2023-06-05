@@ -15,10 +15,11 @@ public class PlayerMoveState : PlayerBaseState
     private bool isJumping;
 
     private float coyoteTimer;
+    private float slipSpeed = 0;
 
     public override void EnterState(PlayerStateManager player)
     {
-        Debug.Log("In Move State");
+        //Debug.Log("In Move State");
     }
 
    
@@ -117,13 +118,21 @@ public class PlayerMoveState : PlayerBaseState
             player.speed = 5f;
             if(moveX != 0)
             {
-                player.slipModifier = 5.0f;
-                player.slipModifier *= moveX;
+                slipSpeed = player.slipModifier;
+                slipSpeed *= moveX;
             }
         }
-        else{
-            player.slipModifier = 0;
+        else
+        {
+            slipSpeed = 0;
             player.speed = 15f;
+        }
+
+        if(player.goombaJump)
+        {
+            Vector2 gooForce = new Vector2(player.rb.velocity.x,player.goombaJumpForce);
+            player.rb.AddForce(gooForce,ForceMode2D.Impulse);
+            player.goombaJump = false;
         }
        
 
@@ -135,14 +144,44 @@ public class PlayerMoveState : PlayerBaseState
 
         // // Slip and speed modifiers
         // HandleSlip(player, moveX);
+        //Debug.Log("Player Y vel: " + player.rb.velocity.y);
         
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            player.SwitchState(player.knockbackState);
+
+            
+            int damage = collision.gameObject.GetComponent<EnemyBaseClass>().damage;
+            //Cache Collider bounds
+            Bounds enemyBounds  =  collision.collider.bounds;
+            Bounds playerBounds =  player.playerCollider.bounds;
+            //Cache contact points
+            float playerY = player.transform.position.y - 1.5f; 
+            float enemyY = collision.gameObject.transform.position.y;
+            //Perform checks
+            bool isAbove = playerY > enemyY;
+            bool isWithinBounds = ((playerBounds.max.x >= enemyBounds.min.x-.25f) || (playerBounds.min.x <= enemyBounds.max.x+.25));
+
+            if(isAbove && isWithinBounds) //If above enemy, goomba stomp
+            {
+                player.rb.velocity = new Vector2(player.rb.velocity.x,0);
+                player.goombaJump = true;
+                damageable.Kill(collision.gameObject);
+            }
+            else //Take damage and get knocked back
+            {   
+                
+                float dir = Mathf.Sign(player.transform.position.x - collision.gameObject.transform.position.x);
+                player.direction = dir;
+                player.rb.velocity = new Vector2(0,0);
+                player.playerHealth.TakeDamage(damage);
+                player.SwitchState(player.knockbackState);
+            }
+
         }
     }
 
@@ -151,7 +190,7 @@ public class PlayerMoveState : PlayerBaseState
 
         
         //Takes in move direction from player input handler
-        player.rb.velocity = new Vector2((moveX*player.speed) + player.slipModifier,player.rb.velocity.y);
+        player.rb.velocity = new Vector2((moveX*player.speed) + slipSpeed,player.rb.velocity.y);
 
 
         if(bufferjump)
@@ -179,9 +218,9 @@ private void FallHandler(PlayerStateManager player)
         player.rb.gravityScale = 5.0f + player.fallModifier;
     }
     else
-        {
-            player.rb.gravityScale = 5.0f;
-        }
+    {
+        player.rb.gravityScale = 5.0f;
+    }
  }
     
 private void HandleJumping(PlayerStateManager player, bool isGrounded, bool isJumpInput, bool isJumpHeld, bool isJumpButtonUp)
@@ -271,10 +310,12 @@ private void FlipSprite(PlayerStateManager player)
 
 private void UpdateAnimationParameters(PlayerStateManager player, bool isGrounded)
 {
-    bool isRunning = player.rb.velocity.x != 0;
+    bool isRunning = player.rb.velocity.x != 0 && isGrounded;
+    
     player.animator.SetBool("isRunning", isRunning);
 
-    bool isGoingUp = player.rb.velocity.y > 0 && isJumping;
+    bool isGoingUp = player.rb.velocity.y > 0;
+    Debug.Log("is going up? " + isGoingUp);
     player.animator.SetBool("IsGoingUp", isGoingUp);
 
     player.animator.SetBool("onGround", isGrounded);

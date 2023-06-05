@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IDamageable
 {
     void TakeDamage(int damageAmount);
+    void Kill(GameObject self);
 }

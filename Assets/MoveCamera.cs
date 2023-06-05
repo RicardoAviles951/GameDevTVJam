@@ -21,7 +21,7 @@ public class MoveCamera : MonoBehaviour
             Vector2 pos = transform.position;
             //Position variable to collider position
             camManager.position = new Vector3(pos.x,pos.y, -10);
-            print(transform.position);
+//            print(transform.position);
         }
     }
     
