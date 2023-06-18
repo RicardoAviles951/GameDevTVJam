@@ -10,18 +10,34 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
     private PlayerDetector detector;
     private EnemyPatroller patroller;
     private ChasePlayer chaser;
+    private GroundChecker groundChecker;
     private float timer;
     private float time = 2.0f;
     private Animator anim;
     private Collider2D _collider;
+    [Header("Knockback Parameters")]
+    [SerializeField] float stunTime = 0.5f;
+    private float stunTimer = 0;
+    [SerializeField] float knockbackX = 10.0f;
+    [SerializeField] float knockbackY = 10.0f;
+    private bool isStunned = false;
 
 
     #region INTERFACE METHODS
 
     public void TakeDamage(int damage)
     {
-        // Implement the behavior for the enemy taking damage
-        // ...
+        if(currentHP > 0)
+        {
+            currentHP -= damage;
+            timer = 0;
+            currentState = EnemyState.Knockback;
+        } 
+        else if(currentHP <= 0)
+        {
+            Kill(gameObject);
+        }
+        
     }
 
     public void Kill(GameObject self)
@@ -33,11 +49,13 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
     #region MONOBEHAVIORS
     private void Awake()
     {
-        detector  = GetComponent<PlayerDetector>();
-        patroller = GetComponent<EnemyPatroller>();
-        chaser    = GetComponent<ChasePlayer>();
-        anim = GetComponent<Animator>();
-        _collider = GetComponent<Collider2D>();
+        currentHP     = maxHP;
+        detector      = GetComponent<PlayerDetector>();
+        patroller     = GetComponent<EnemyPatroller>();
+        chaser        = GetComponent<ChasePlayer>();
+        anim          = GetComponent<Animator>();
+        _collider     = GetComponent<Collider2D>();
+        groundChecker = GetComponent<GroundChecker>();
 
         if (detector == null)
         {
@@ -131,6 +149,29 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
             currentState = EnemyState.Idle;
         }
     }
+
+    protected override void KnockbackBehavior()
+    {
+        Vector2 knockforce = new Vector2(knockbackX*detector.hitdirection(),knockbackY);
+        if(isStunned == false)
+        {
+            rb.velocity = new Vector2(0,0);
+            rb.AddForce(knockforce,ForceMode2D.Impulse);
+            isStunned = true;
+        }
+        
+        if(stunTimer < stunTime)
+        {
+            stunTimer += Time.deltaTime;
+        }
+        else
+        {
+            stunTimer = 0;
+            isStunned = false;
+            currentState = EnemyState.Idle;
+        }
+        
+    }
     
     #endregion
 
@@ -187,6 +228,7 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
 
     void UpdateAnimation()
     {
+        bool isgrounded = groundChecker.CheckGround();
         //Stores if character is moving horizontally and sets the animator parameter.
         bool isRunning = rb.velocity.x != 0;
         anim.SetBool("isRunning", isRunning);
@@ -197,15 +239,16 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
             //selfScale.x = Mathf.Sign(rb.velocity.x);
             transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x),transform.localScale.y, transform.localScale.z);
         }
-    }
 
-    // void OnDrawGizmos()
-    // {
-    //    Vector3 posR = new Vector3(_collider.bounds.max.x,_collider.bounds.max.y,0);
-    //     Gizmos.DrawCube(posR,new Vector3(.2f,.2f,0));
-    //     Vector3 posL = new Vector3(_collider.bounds.min.x,_collider.bounds.max.y,0);
-    //     Gizmos.DrawCube(posL,new Vector3(.2f,.2f,0));
-    // }
+        if(isgrounded)
+        {
+            anim.SetBool("isGrounded", true);
+        }
+        else
+        {
+            anim.SetBool("isGrounded", false);
+        }
+    }
 
     
 }

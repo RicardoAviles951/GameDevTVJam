@@ -46,7 +46,7 @@ public class PlayerDetector : MonoBehaviour
             Vector2 playerPos = player.transform.position;
             Vector2 enemyPos = transform.position;
 
-            float dir = Mathf.Sign(playerPos.x - enemyPos.x);
+            float dir = Mathf.Sign(enemyPos.x - playerPos.x);
             return dir;
     }
 }

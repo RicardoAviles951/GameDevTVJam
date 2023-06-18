@@ -29,12 +29,18 @@ public class PlayerMoveState : PlayerBaseState
         bool isJumpInput    = player.playerInput.JumpInput();
         bool isJumpHeld     = player.playerInput.JumpInputHeld();
         bool isJumpButtonUp = player.playerInput.JumpButtonUp();
+        bool isAttackInput  = player.playerInput.AttackPressed();
         
         moveX = player.playerInput.HorizontalInput();
 
         
         //Checks if player is on the ground
         isGrounded = CheckGround(player);
+
+        if(isAttackInput && isGrounded)
+        {
+            player.SwitchState(player.attackState);
+        }
 
         
 

@@ -9,6 +9,7 @@ public class PlayerStateManager : MonoBehaviour
     PlayerBaseState currentState;
     public PlayerIdleState idleState           = new PlayerIdleState();
     public PlayerMoveState moveState           = new PlayerMoveState();
+    public PlayerAttackState attackState       = new PlayerAttackState();
     public PlayerKnockbackState knockbackState = new PlayerKnockbackState();
     public PlayerDeathState deathState         = new PlayerDeathState();
 
@@ -50,6 +51,16 @@ public class PlayerStateManager : MonoBehaviour
     public float verticalKnockbackForce = 5.0f;
     public float stunDuration = 0.5f;
 
+    [Header("Attack Variables")]
+    public int attackPower = 5;
+    public float attackTime = 0.3f;
+    public Transform attackPoint;
+    public float attackRangeLength = 1;
+    public float attackRangeHeight = 1;
+    public ParticleSystem attackHitParticles;
+    [HideInInspector]
+    public HitStopController hitStopController;
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +70,9 @@ public class PlayerStateManager : MonoBehaviour
         rb           = GetComponent<Rigidbody2D>();
         animator     = GetComponent<Animator>();
         playerHealth = GetComponent<PlayerHealth>();
+        hitStopController = GetComponent<HitStopController>();
         groundLayer = LayerMask.GetMask("Ground");
+        attackHitParticles = Instantiate(attackHitParticles,attackPoint);
 
 
         currentState = moveState;
@@ -94,6 +107,14 @@ public class PlayerStateManager : MonoBehaviour
     //     Gizmos.DrawCube(posR,new Vector3(.2f,.2f,0));
         
     // }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(attackPoint.position,attackRange);
+        Vector2 pos = new Vector2(attackRangeLength,attackRangeHeight);
+        Gizmos.DrawWireCube(attackPoint.position,pos);
+    }
 
 }
 

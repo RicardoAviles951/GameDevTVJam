@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class EnemyBaseClass : MonoBehaviour
 {
-    public int damage;
-    [SerializeField] protected int maxHP;
+    public int damage = 1;
+    [SerializeField] protected int maxHP = 10;
     [SerializeField] protected float moveSpeed;
     protected Rigidbody2D rb;
-    protected int currentHP;
+    [SerializeField] protected int currentHP;
     protected bool isStomped;
 
     public enum EnemyState
@@ -16,7 +16,8 @@ public abstract class EnemyBaseClass : MonoBehaviour
         Idle,
         Patrol,
         Chase,
-        Attack
+        Attack,
+        Knockback
     }
 
     protected EnemyState currentState;
@@ -26,6 +27,7 @@ public abstract class EnemyBaseClass : MonoBehaviour
     protected abstract void PatrolBehavior();
     protected abstract void ChaseBehavior();
     protected abstract void AttackBehavior();
+    protected abstract void KnockbackBehavior();
 
     protected virtual void Start()
     {
@@ -49,6 +51,9 @@ public abstract class EnemyBaseClass : MonoBehaviour
                 break;
             case EnemyState.Attack:
                 AttackBehavior();
+                break;
+            case EnemyState.Knockback:
+                KnockbackBehavior();
                 break;
         }
     }

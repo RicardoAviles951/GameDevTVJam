@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    private InputAction moveAction, jumpAction, restartAction;
+    private InputAction moveAction, jumpAction, restartAction, attackAction;
     public InputSystem playerControls;
 
     private void Awake()
@@ -20,9 +20,11 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction = playerControls.Player.Move;
         jumpAction = playerControls.Player.Jump;
         restartAction = playerControls.Player.Reset;
+        attackAction = playerControls.Player.Fire;
         jumpAction.Enable();
         moveAction.Enable();
         restartAction.Enable();
+        attackAction.Enable();
     }
 
     void OnDisable()
@@ -30,6 +32,7 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction.Disable();
         jumpAction.Disable();
         restartAction.Disable();
+        attackAction.Disable();
     }
     
 
@@ -41,7 +44,6 @@ public class PlayerInputHandler : MonoBehaviour
     public float HorizontalInput()
     {
         float moveInputX = moveAction.ReadValue<Vector2>().x;
-        //print(moveInputX);
         return moveInputX;
     }
     
@@ -69,6 +71,11 @@ public class PlayerInputHandler : MonoBehaviour
         //Loads current scene again. 
         SceneManager.LoadScene(currentSceneIndex);
         }
+    }
+
+    public bool AttackPressed()
+    {
+        return attackAction.triggered;
     }
 
     
