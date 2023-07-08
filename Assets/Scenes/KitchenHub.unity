@@ -1280,6 +1280,41 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4584020938040989980, guid: 3861421d5e777244d8c5db5ae84eef6e, type: 3}
   m_PrefabInstance: {fileID: 1894576854}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1019036997 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3840814239890346904, guid: 30a809896a98a2447a0b2740210fa48e, type: 3}
+  m_PrefabInstance: {fileID: 2034562018}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1019037001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019036997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_PointAction: {fileID: 8334986509407194820, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_MoveAction: {fileID: 7413874820176283644, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_SubmitAction: {fileID: 2713599474478067332, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_CancelAction: {fileID: -6870642147026446039, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_LeftClickAction: {fileID: 2112964792623822735, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_MiddleClickAction: {fileID: 9022238596283276635, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_RightClickAction: {fileID: -2044311803684349280, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_ScrollWheelAction: {fileID: 6142472815754255876, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_TrackedDevicePositionAction: {fileID: -1259694501155492831, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 2551588620086188079, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1001 &1027772139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2012,13 +2047,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6807337840927397792, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
-      propertyPath: characterName
-      value: Steve
-      objectReference: {fileID: 0}
-    - target: {fileID: 6807337840927397792, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
-      propertyPath: dialogueBubbleOffset.y
-      value: 2.5
+    - target: {fileID: 2648389190289290279, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6807337840927397800, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
       propertyPath: m_RootOrder
@@ -2067,6 +2098,18 @@ PrefabInstance:
     - target: {fileID: 6807337840927397802, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807337840927397804, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807337840927397804, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
+      propertyPath: m_UIInputModule
+      value: 
+      objectReference: {fileID: 1019037001}
+    - target: {fileID: 6807337840927397804, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Keyboard&Mouse
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fd04c19e0ba2884680cd5c6ebbe2b92, type: 3}
@@ -2276,7 +2319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbdf56e998b62604baace6b973266771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
+  position: {x: 0, y: 0, z: 0}
 --- !u!1001 &1894576854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2791,7 +2834,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1712186072755997303, guid: 30a809896a98a2447a0b2740210fa48e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 30a809896a98a2447a0b2740210fa48e, type: 3}
 --- !u!1001 &2039583928
 PrefabInstance:

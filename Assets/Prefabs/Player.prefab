@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 3162188042318727457}
   - component: {fileID: 2604465381524290337}
   - component: {fileID: 4267556097139354423}
+  - component: {fileID: 2607411057062930407}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -42,6 +43,7 @@ Transform:
   m_Children:
   - {fileID: 6807337842545930023}
   - {fileID: 3490656253089250169}
+  - {fileID: 2648389190289290277}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -227,6 +229,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5ed8c93f-d064-47c4-b97d-0960016f3936
     m_ActionName: Player/Reset[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 57c0baba-80b1-4d91-8f91-2d8f5465d976
+    m_ActionName: Player/PauseToggleOn[/Keyboard/escape,/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4da09231-c5c7-4119-81e1-66b5090841f1
+    m_ActionName: UI/PauseToggleOff[/Keyboard/escape,/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -279,8 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1a4f5137e91c341825b918d4558ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: MyName
-  dialogueBubbleOffset: {x: 0, y: 3, z: 0}
+  characterName: Steve
+  dialogueBubbleOffset: {x: 0, y: 2.5, z: 0}
   offsetUsesRotation: 0
 --- !u!114 &6807337840927397798
 MonoBehaviour:
@@ -484,6 +494,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitStopDuration: 0.1
+--- !u!114 &2607411057062930407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6807337840927397802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc00d0cfe642615499e721de6f60b0e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseToggleOn: {fileID: 143744209998264761, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  pauseToggleOff: {fileID: 3884783244851684352, guid: 23049d28bb766ce4c87356828ab56a41, type: 3}
+  pauseMenu: {fileID: 2648389190289290279}
 --- !u!1 &6807337842545930016
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,3 +571,70 @@ Transform:
   m_Father: {fileID: 6807337840927397800}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &473765393
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6807337840927397800}
+    m_Modifications:
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648389190220276278, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+      propertyPath: m_Name
+      value: PauseMenu
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+--- !u!4 &2648389190289290277 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2648389190220276276, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+  m_PrefabInstance: {fileID: 473765393}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2648389190289290279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2648389190220276278, guid: 893940d1641190a48a662cb3b866dbb5, type: 3}
+  m_PrefabInstance: {fileID: 473765393}
+  m_PrefabAsset: {fileID: 0}

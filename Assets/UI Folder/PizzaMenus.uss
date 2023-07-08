@@ -1,0 +1,19 @@
+.button {
+    -unity-background-image-tint-color: rgb(190, 172, 147);
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.button:hover {
+    -unity-background-image-tint-color: rgb(143, 100, 58);
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.button:active {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-end;
+    top: 10px;
+}

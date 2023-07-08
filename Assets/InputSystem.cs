@@ -71,6 +71,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseToggleOn"",
+                    ""type"": ""Button"",
+                    ""id"": ""57c0baba-80b1-4d91-8f91-2d8f5465d976"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -315,6 +324,28 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Reset"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a04cc9e9-3240-4a61-8084-685279e2027d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PauseToggleOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1176973b-d967-4d6a-8d48-da9f0aa7c584"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PauseToggleOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -408,6 +439,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""07b24b2e-73fe-4d01-935c-88050a385cab"",
                     ""expectedControlType"": ""Quaternion"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseToggleOff"",
+                    ""type"": ""Button"",
+                    ""id"": ""4da09231-c5c7-4119-81e1-66b5090841f1"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -831,6 +871,28 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32a77a1f-324f-465a-9705-62ddc6e610e8"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PauseToggleOff"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc05f59e-c97f-4216-8a5e-9ea96c85c264"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PauseToggleOff"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -905,6 +967,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Reset = m_Player.FindAction("Reset", throwIfNotFound: true);
+        m_Player_PauseToggleOn = m_Player.FindAction("PauseToggleOn", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -917,6 +980,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_UI_PauseToggleOff = m_UI.FindAction("PauseToggleOff", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -983,6 +1047,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Reset;
+    private readonly InputAction m_Player_PauseToggleOn;
     public struct PlayerActions
     {
         private @InputSystem m_Wrapper;
@@ -992,6 +1057,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Reset => m_Wrapper.m_Player_Reset;
+        public InputAction @PauseToggleOn => m_Wrapper.m_Player_PauseToggleOn;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1016,6 +1082,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Reset.started += instance.OnReset;
             @Reset.performed += instance.OnReset;
             @Reset.canceled += instance.OnReset;
+            @PauseToggleOn.started += instance.OnPauseToggleOn;
+            @PauseToggleOn.performed += instance.OnPauseToggleOn;
+            @PauseToggleOn.canceled += instance.OnPauseToggleOn;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1035,6 +1104,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Reset.started -= instance.OnReset;
             @Reset.performed -= instance.OnReset;
             @Reset.canceled -= instance.OnReset;
+            @PauseToggleOn.started -= instance.OnPauseToggleOn;
+            @PauseToggleOn.performed -= instance.OnPauseToggleOn;
+            @PauseToggleOn.canceled -= instance.OnPauseToggleOn;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1066,6 +1138,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
+    private readonly InputAction m_UI_PauseToggleOff;
     public struct UIActions
     {
         private @InputSystem m_Wrapper;
@@ -1080,6 +1153,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+        public InputAction @PauseToggleOff => m_Wrapper.m_UI_PauseToggleOff;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1119,6 +1193,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+            @PauseToggleOff.started += instance.OnPauseToggleOff;
+            @PauseToggleOff.performed += instance.OnPauseToggleOff;
+            @PauseToggleOff.canceled += instance.OnPauseToggleOff;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1153,6 +1230,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;
+            @PauseToggleOff.started -= instance.OnPauseToggleOff;
+            @PauseToggleOff.performed -= instance.OnPauseToggleOff;
+            @PauseToggleOff.canceled -= instance.OnPauseToggleOff;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1222,6 +1302,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnReset(InputAction.CallbackContext context);
+        void OnPauseToggleOn(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
@@ -1235,5 +1316,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        void OnPauseToggleOff(InputAction.CallbackContext context);
     }
 }
