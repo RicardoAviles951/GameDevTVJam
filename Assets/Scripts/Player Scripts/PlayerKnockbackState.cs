@@ -6,7 +6,8 @@ public class PlayerKnockbackState : PlayerBaseState
 {
     float stateTimer = 0;
     public override void EnterState(PlayerStateManager player)
-    {   
+    {
+        SoundManager.Instance.PlaySound(player.damageSound);
         Vector2 force = new Vector2(player.horizontalKnockbackForce*player.direction,player.verticalKnockbackForce);
         player.rb.AddForce(force,ForceMode2D.Impulse);
         player.animator.SetBool("isDamaged", true);  

@@ -5,11 +5,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateManager : MonoBehaviour
 {
-
+    public enum AttackType
+    {
+        cutter,
+        whip
+    }
     PlayerBaseState currentState;
     public PlayerIdleState idleState           = new PlayerIdleState();
     public PlayerMoveState moveState           = new PlayerMoveState();
     public PlayerAttackState attackState       = new PlayerAttackState();
+    public PlayerWhipAttackState whipState     = new PlayerWhipAttackState();
     public PlayerKnockbackState knockbackState = new PlayerKnockbackState();
     public PlayerDeathState deathState         = new PlayerDeathState();
 
@@ -45,11 +50,14 @@ public class PlayerStateManager : MonoBehaviour
     public bool goombaJump = false;
     [HideInInspector]
     public Collider2D playerCollider;
+    public AudioClip jumpClip;
+    public AudioClip stepClip;
 
     [Header("Knockback State Variables")]
     public float horizontalKnockbackForce = 10f;
     public float verticalKnockbackForce = 5.0f;
     public float stunDuration = 0.5f;
+    public AudioClip damageSound;
 
     [Header("Attack Variables")]
     public int attackPower = 5;
@@ -60,6 +68,10 @@ public class PlayerStateManager : MonoBehaviour
     public ParticleSystem attackHitParticles;
     [HideInInspector]
     public HitStopController hitStopController;
+    public AudioClip cutterSound;
+    public AudioClip whipSound;
+    public bool Attacking { get; set; } = false;
+    public AttackType attackType { get; set; } = AttackType.cutter;
 
 
     // Start is called before the first frame update
@@ -114,6 +126,15 @@ public class PlayerStateManager : MonoBehaviour
         //Gizmos.DrawWireSphere(attackPoint.position,attackRange);
         Vector2 pos = new Vector2(attackRangeLength,attackRangeHeight);
         Gizmos.DrawWireCube(attackPoint.position,pos);
+    }
+
+    public void PlayStepSound()
+    {
+        //Creates variation by changing the pitch every call
+        float rnd = Random.Range(.9f, 1.3f);
+        SoundManager.Instance.PlaySound(stepClip,rnd);
+        
+      
     }
 
 }

@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    private InputAction moveAction, jumpAction, restartAction, attackAction;
+    private InputAction moveAction, jumpAction, restartAction, attackAction, debugAction;
     public InputSystem playerControls;
+    public bool Weapon = false;
 
     private void Awake()
     {
@@ -25,6 +26,10 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction.Enable();
         restartAction.Enable();
         attackAction.Enable();
+
+        debugAction = playerControls.Debug.Toggle;
+        debugAction.Enable();
+
     }
 
     void OnDisable()
@@ -33,6 +38,8 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.Disable();
         restartAction.Disable();
         attackAction.Disable();
+
+        debugAction.Disable();
     }
     
 
@@ -76,6 +83,12 @@ public class PlayerInputHandler : MonoBehaviour
     public bool AttackPressed()
     {
         return attackAction.triggered;
+    }
+
+    public bool ToggleWeapon()
+    {
+
+        return debugAction.IsPressed();
     }
 
     
