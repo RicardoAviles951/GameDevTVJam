@@ -16,6 +16,7 @@ public class PlayerMoveState : PlayerBaseState
 
     private float coyoteTimer;
     private float slipSpeed = 0;
+    private int pos = 0;
 
     public override void EnterState(PlayerStateManager player)
     {
@@ -25,12 +26,18 @@ public class PlayerMoveState : PlayerBaseState
    
     public override void UpdateState(PlayerStateManager player)
     {
+
+
+
         //Cache inputs
         bool isJumpInput    = player.playerInput.JumpInput();
         bool isJumpHeld     = player.playerInput.JumpInputHeld();
         bool isJumpButtonUp = player.playerInput.JumpButtonUp();
         bool isAttackInput  = player.playerInput.AttackPressed();
+        bool toggleDebug = player.playerInput.ToggleWeapon();
+
         
+
         moveX = player.playerInput.HorizontalInput();
 
         
@@ -39,7 +46,15 @@ public class PlayerMoveState : PlayerBaseState
 
         if(isAttackInput && isGrounded)
         {
-            player.SwitchState(player.attackState);
+            if (toggleDebug)
+            {
+                player.SwitchState(player.attackState);
+            }
+            else if(toggleDebug == false)
+            {
+                player.SwitchState(player.whipState);
+            }
+            
         }
 
         
@@ -54,6 +69,7 @@ public class PlayerMoveState : PlayerBaseState
                 if(jumpInputBufferTime < .2f)
                 {
                     bufferjump = true;
+                    
                 }
                 buffered = false;
             }
@@ -83,13 +99,15 @@ public class PlayerMoveState : PlayerBaseState
                 isJumping = true;
                 jumpTimer = 0;
                 player.rb.velocity = new Vector2(player.rb.velocity.x,player.jumpForce);
-                
+                SoundManager.Instance.PlaySound(player.jumpClip,1);
                 isGrounded = false;
             }
             if(isGrounded == false)
             {
                 buffered = true;
-               
+                float rnd = Random.Range(1.2f, 1.5f);
+                SoundManager.Instance.PlaySound(player.jumpClip, rnd);
+
             }
              
         }
@@ -202,6 +220,7 @@ public class PlayerMoveState : PlayerBaseState
         if(bufferjump)
         {
             player.rb.velocity = new Vector2(player.rb.velocity.x,player.jumpForce*2);
+            
             bufferjump = false;
         }
 
@@ -326,6 +345,8 @@ private void UpdateAnimationParameters(PlayerStateManager player, bool isGrounde
 
     player.animator.SetBool("onGround", isGrounded);
 }
+
+    
 
     
 }

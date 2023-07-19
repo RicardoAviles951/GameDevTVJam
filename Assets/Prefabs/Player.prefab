@@ -36,7 +36,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6807337840927397802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.72, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -313,9 +313,12 @@ MonoBehaviour:
   direction: 0
   goombaJump: 0
   playerCollider: {fileID: 0}
+  jumpClip: {fileID: 8300000, guid: 633606d25e94b1c499be978c8076e84a, type: 3}
+  stepClip: {fileID: 8300000, guid: d6e878de03f7d1d408f19ddbce9e8144, type: 3}
   horizontalKnockbackForce: 10
   verticalKnockbackForce: 5
   stunDuration: 0.5
+  damageSound: {fileID: 8300000, guid: 0fbaa929cbd08a2428983e070b91ec9e, type: 3}
   attackPower: 5
   attackTime: 0.3
   attackPoint: {fileID: 3490656253089250169}
@@ -323,6 +326,8 @@ MonoBehaviour:
   attackRangeHeight: 1.5
   attackHitParticles: {fileID: 4037194952260995850, guid: e42db2bf2156d7840a2fe9e95c0bdab2, type: 3}
   hitStopController: {fileID: 0}
+  cutterSound: {fileID: 8300000, guid: 53becf750d8595f429f10a450ccd5186, type: 3}
+  whipSound: {fileID: 8300000, guid: 383f14e8a3478b64dbbf135d1134514f, type: 3}
 --- !u!114 &6807337840927397797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,6 +529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3490656253089250169}
+  - component: {fileID: 4424660489839085108}
   m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
@@ -539,10 +545,23 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8750022260273279468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6807337840927397800}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4424660489839085108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8750022260273279468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e1ff14934df25c4f99e239cabe2a5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateManager: {fileID: 6807337840927397798}
