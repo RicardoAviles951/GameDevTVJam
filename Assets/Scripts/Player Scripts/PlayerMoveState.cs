@@ -34,7 +34,7 @@ public class PlayerMoveState : PlayerBaseState
         bool isJumpHeld     = player.playerInput.JumpInputHeld();
         bool isJumpButtonUp = player.playerInput.JumpButtonUp();
         bool isAttackInput  = player.playerInput.AttackPressed();
-        bool toggleDebug = player.playerInput.ToggleWeapon();
+        //bool toggleDebug = player.playerInput.ToggleWeapon();
 
         
 
@@ -44,18 +44,18 @@ public class PlayerMoveState : PlayerBaseState
         //Checks if player is on the ground
         isGrounded = CheckGround(player);
 
-        if(isAttackInput && isGrounded)
-        {
-            if (toggleDebug)
-            {
-                player.SwitchState(player.attackState);
-            }
-            else if(toggleDebug == false)
-            {
-                player.SwitchState(player.whipState);
-            }
+        //if(isAttackInput && isGrounded)
+        //{
+        //    if (toggleDebug)
+        //    {
+        //        player.SwitchState(player.attackState);
+        //    }
+        //    else if(toggleDebug == false)
+        //    {
+        //        player.SwitchState(player.whipState);
+        //    }
             
-        }
+        //}
 
         
 
