@@ -444,7 +444,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PauseToggleOff"",
+                    ""name"": ""PauseToggle"",
                     ""type"": ""Button"",
                     ""id"": ""4da09231-c5c7-4119-81e1-66b5090841f1"",
                     ""expectedControlType"": ""Button"",
@@ -879,7 +879,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""PauseToggleOff"",
+                    ""action"": ""PauseToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -890,7 +890,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""PauseToggleOff"",
+                    ""action"": ""PauseToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -980,7 +980,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-        m_UI_PauseToggleOff = m_UI.FindAction("PauseToggleOff", throwIfNotFound: true);
+        m_UI_PauseToggle = m_UI.FindAction("PauseToggle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1138,7 +1138,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
-    private readonly InputAction m_UI_PauseToggleOff;
+    private readonly InputAction m_UI_PauseToggle;
     public struct UIActions
     {
         private @InputSystem m_Wrapper;
@@ -1153,7 +1153,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
-        public InputAction @PauseToggleOff => m_Wrapper.m_UI_PauseToggleOff;
+        public InputAction @PauseToggle => m_Wrapper.m_UI_PauseToggle;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1193,9 +1193,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
-            @PauseToggleOff.started += instance.OnPauseToggleOff;
-            @PauseToggleOff.performed += instance.OnPauseToggleOff;
-            @PauseToggleOff.canceled += instance.OnPauseToggleOff;
+            @PauseToggle.started += instance.OnPauseToggle;
+            @PauseToggle.performed += instance.OnPauseToggle;
+            @PauseToggle.canceled += instance.OnPauseToggle;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1230,9 +1230,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;
-            @PauseToggleOff.started -= instance.OnPauseToggleOff;
-            @PauseToggleOff.performed -= instance.OnPauseToggleOff;
-            @PauseToggleOff.canceled -= instance.OnPauseToggleOff;
+            @PauseToggle.started -= instance.OnPauseToggle;
+            @PauseToggle.performed -= instance.OnPauseToggle;
+            @PauseToggle.canceled -= instance.OnPauseToggle;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1316,6 +1316,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-        void OnPauseToggleOff(InputAction.CallbackContext context);
+        void OnPauseToggle(InputAction.CallbackContext context);
     }
 }

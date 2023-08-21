@@ -422,7 +422,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PauseToggleOff",
+                    "name": "PauseToggle",
                     "type": "Button",
                     "id": "4da09231-c5c7-4119-81e1-66b5090841f1",
                     "expectedControlType": "Button",
@@ -857,7 +857,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "PauseToggleOff",
+                    "action": "PauseToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -868,7 +868,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "PauseToggleOff",
+                    "action": "PauseToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

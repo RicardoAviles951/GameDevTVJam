@@ -16,23 +16,25 @@ public class PlayerInputHandler : MonoBehaviour
 
     void OnEnable()
     {
+        playerControls.Player.Enable();
         //Enables player controls as part of Unity input system.
         moveAction = playerControls.Player.Move;
         jumpAction = playerControls.Player.Jump;
         restartAction = playerControls.Player.Reset;
         attackAction = playerControls.Player.Fire;
-        jumpAction.Enable();
-        moveAction.Enable();
-        restartAction.Enable();
-        attackAction.Enable();
+        //jumpAction.Enable();
+        //moveAction.Enable();
+        //restartAction.Enable();
+        //attackAction.Enable();
     }
 
     void OnDisable()
     {
-        moveAction.Disable();
-        jumpAction.Disable();
-        restartAction.Disable();
-        attackAction.Disable();
+        playerControls.Player.Disable();
+        //moveAction.Disable();
+        //jumpAction.Disable();
+        //restartAction.Disable();
+        //attackAction.Disable();
     }
     
 
@@ -44,21 +46,26 @@ public class PlayerInputHandler : MonoBehaviour
     public float HorizontalInput()
     {
         float moveInputX = moveAction.ReadValue<Vector2>().x;
+        //Debug.Log("moving horz");
         return moveInputX;
     }
     
      public bool JumpInput()
     {
+        //Debug.Log("jumping");
         return jumpAction.triggered;
     }
 
     public bool JumpInputHeld()
     {
+        //Debug.Log("jump held");
         return jumpAction.IsPressed();
+        
     }
 
     public bool JumpButtonUp()
     {
+        Debug.Log("Jump released");
         return jumpAction.WasReleasedThisFrame();
     }
 
@@ -75,6 +82,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool AttackPressed()
     {
+        //Debug.Log("clicked");
         return attackAction.triggered;
     }
 

@@ -13,6 +13,7 @@ using UnityEngine.UIElements;
 using System;
 using UnityEngine.InputSystem; 
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 #endregion
 
 public class PauseMenuController : MonoBehaviour
@@ -28,8 +29,8 @@ public class PauseMenuController : MonoBehaviour
 
     private void OnEnable()
     {
-        GameObject player = GameObject.FindWithTag("Player"); 
-        playerInput = player.GetComponent<PlayerInput>(); 
+        //GameObject player = GameObject.FindWithTag("Player"); 
+        //playerInput = player.GetComponent<PlayerInput>(); 
         
         m_pauseRoot = GetComponent<UIDocument>().rootVisualElement;
         m_playBTN = m_pauseRoot.Q<Button>("playBTN");
@@ -38,7 +39,8 @@ public class PauseMenuController : MonoBehaviour
 
         m_playBTN.clicked += PlayPressed; 
         m_quitBTN.clicked += QuitPressed; 
-        m_returnBTN.clicked += ReturnPressed; 
+        m_returnBTN.clicked += ReturnPressed;
+       
     }
 
     private void OnDisable()
@@ -53,7 +55,7 @@ public class PauseMenuController : MonoBehaviour
     /// </summary>
     private void PlayPressed()
     {
-        playerInput.SwitchCurrentActionMap("Player");
+        //playerInput.SwitchCurrentActionMap("Player");
         Time.timeScale = 1; 
         Debug.Log("Pause Menu Play Pressed");
         gameObject.SetActive(false);
@@ -65,7 +67,7 @@ public class PauseMenuController : MonoBehaviour
     private void QuitPressed()
     {
         Debug.Log("Pause Menu Quit Pressed");
-        Application.Quit(); 
+        //Application.Quit(); 
     }
 
     /// <summary>
@@ -73,7 +75,8 @@ public class PauseMenuController : MonoBehaviour
     /// </summary>
     private void ReturnPressed()
     {
-        //Debug.Log("Pause Menu Return Pressed");
-        //SceneManager.LoadSceneAsync("KitchenHub");
+        Debug.Log("Pause Menu Return Pressed");
+        Time.timeScale = 1.0f;
+        SceneManager.LoadSceneAsync("KitchenHub");
     }
 }
