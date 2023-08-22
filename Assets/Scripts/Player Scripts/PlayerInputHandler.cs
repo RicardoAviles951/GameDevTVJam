@@ -8,6 +8,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
     private InputAction moveAction, jumpAction, restartAction, attackAction;
     public InputSystem playerControls;
+    public bool isJumping = false;
 
     private void Awake()
     {
@@ -18,29 +19,30 @@ public class PlayerInputHandler : MonoBehaviour
     {
         playerControls.Player.Enable();
         //Enables player controls as part of Unity input system.
-        moveAction = playerControls.Player.Move;
-        jumpAction = playerControls.Player.Jump;
+        moveAction    = playerControls.Player.Move;
+        jumpAction    = playerControls.Player.Jump;
         restartAction = playerControls.Player.Reset;
-        attackAction = playerControls.Player.Fire;
-        //jumpAction.Enable();
-        //moveAction.Enable();
-        //restartAction.Enable();
-        //attackAction.Enable();
+        attackAction  = playerControls.Player.Fire;
+        
     }
 
     void OnDisable()
     {
         playerControls.Player.Disable();
-        //moveAction.Disable();
-        //jumpAction.Disable();
-        //restartAction.Disable();
-        //attackAction.Disable();
     }
     
 
     private void Update()
     {
-        
+        Debug.Log(isJumping);
+        if(GameStateController.isPaused == true )
+        {
+            playerControls.Player.Disable();
+        }
+        else
+        {
+            playerControls.Player.Enable();
+        }
     }
 
     public float HorizontalInput()
@@ -52,8 +54,7 @@ public class PlayerInputHandler : MonoBehaviour
     
      public bool JumpInput()
     {
-        //Debug.Log("jumping");
-        return jumpAction.triggered;
+        return jumpAction.WasPerformedThisFrame();
     }
 
     public bool JumpInputHeld()
@@ -62,7 +63,6 @@ public class PlayerInputHandler : MonoBehaviour
         return jumpAction.IsPressed();
         
     }
-
     public bool JumpButtonUp()
     {
         Debug.Log("Jump released");
