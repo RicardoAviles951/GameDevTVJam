@@ -43,11 +43,13 @@ public class GameStateController : MonoBehaviour
             {
                 Time.timeScale = 1.0f;
                 pauseMenu.SetActive(false);
+                isPaused = false;
             }
             else
             {
                 pauseMenu.SetActive(true);
                 Time.timeScale = 0;
+                isPaused = true;
                 //Disable player input
             }
             Debug.Log("PAUSE TOGGLED");

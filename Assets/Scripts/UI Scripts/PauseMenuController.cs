@@ -59,6 +59,7 @@ public class PauseMenuController : MonoBehaviour
         Time.timeScale = 1; 
         Debug.Log("Pause Menu Play Pressed");
         gameObject.SetActive(false);
+        GameStateController.isPaused = false;
     }
 
     /// <summary>

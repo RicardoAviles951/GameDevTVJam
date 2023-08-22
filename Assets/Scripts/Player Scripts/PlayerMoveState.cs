@@ -30,6 +30,7 @@ public class PlayerMoveState : PlayerBaseState
 
 
         //Cache inputs
+        //bool isJumpInput    = player.playerInput.JumpInput();
         bool isJumpInput    = player.playerInput.JumpInput();
         bool isJumpHeld     = player.playerInput.JumpInputHeld();
         bool isJumpButtonUp = player.playerInput.JumpButtonUp();
@@ -43,23 +44,27 @@ public class PlayerMoveState : PlayerBaseState
         
         //Checks if player is on the ground
         isGrounded = CheckGround(player);
+        if(isAttackInput && isGrounded)
+        {
+            player.SwitchState(player.attackState);
+        }
 
-        //if(isAttackInput && isGrounded)
+        //if (isattackinput && isgrounded)
         //{
-        //    if (toggleDebug)
-        //    {
-        //        player.SwitchState(player.attackState);
-        //    }
-        //    else if(toggleDebug == false)
-        //    {
-        //        player.SwitchState(player.whipState);
-        //    }
-            
+        //    //if (toggledebug)
+        //    //{
+        //        player.switchstate(player.attackstate);
+        //    //}
+        //    //else if (toggledebug == false)
+        //    //{
+        //    //    player.switchstate(player.whipstate);
+        //    //}
+
         //}
 
-        
 
-        if(isGrounded)
+
+        if (isGrounded)
         {
             if(buffered)
             {
