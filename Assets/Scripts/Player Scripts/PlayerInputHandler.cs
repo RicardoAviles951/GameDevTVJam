@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    private InputAction moveAction, jumpAction, restartAction, attackAction;
+    private InputAction moveAction, jumpAction, restartAction, attackAction,switchAction;
     public InputSystem playerControls;
     public bool isJumping = false;
 
@@ -17,12 +17,15 @@ public class PlayerInputHandler : MonoBehaviour
 
     void OnEnable()
     {
-        playerControls.Player.Enable();
         //Enables player controls as part of Unity input system.
+        playerControls.Player.Enable();
+        
+        //Cache individual actions
         moveAction    = playerControls.Player.Move;
         jumpAction    = playerControls.Player.Jump;
         restartAction = playerControls.Player.Reset;
         attackAction  = playerControls.Player.Fire;
+        switchAction  = playerControls.Player.Switch; 
         
     }
 
@@ -34,7 +37,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(isJumping);
+        //Check if game is paused to disable player controls.
         if(GameStateController.isPaused == true )
         {
             playerControls.Player.Disable();
@@ -84,6 +87,12 @@ public class PlayerInputHandler : MonoBehaviour
     {
         //Debug.Log("clicked");
         return attackAction.triggered;
+    }
+
+    public bool WeaponToggle()
+    {
+        Debug.Log("Weapon Switched");
+        return switchAction.triggered;
     }
 
     

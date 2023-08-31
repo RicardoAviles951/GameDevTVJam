@@ -80,6 +80,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch"",
+                    ""type"": ""Button"",
+                    ""id"": ""024c4c17-3247-43c4-aa67-da997ae5d7a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -344,6 +353,17 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""PauseToggleOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ea67981f-073d-4fc1-9ba1-013386035325"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -996,6 +1016,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Reset = m_Player.FindAction("Reset", throwIfNotFound: true);
         m_Player_PauseToggleOn = m_Player.FindAction("PauseToggleOn", throwIfNotFound: true);
+        m_Player_Switch = m_Player.FindAction("Switch", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1079,6 +1100,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Reset;
     private readonly InputAction m_Player_PauseToggleOn;
+    private readonly InputAction m_Player_Switch;
     public struct PlayerActions
     {
         private @InputSystem m_Wrapper;
@@ -1089,6 +1111,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Reset => m_Wrapper.m_Player_Reset;
         public InputAction @PauseToggleOn => m_Wrapper.m_Player_PauseToggleOn;
+        public InputAction @Switch => m_Wrapper.m_Player_Switch;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1116,6 +1139,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @PauseToggleOn.started += instance.OnPauseToggleOn;
             @PauseToggleOn.performed += instance.OnPauseToggleOn;
             @PauseToggleOn.canceled += instance.OnPauseToggleOn;
+            @Switch.started += instance.OnSwitch;
+            @Switch.performed += instance.OnSwitch;
+            @Switch.canceled += instance.OnSwitch;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1138,6 +1164,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @PauseToggleOn.started -= instance.OnPauseToggleOn;
             @PauseToggleOn.performed -= instance.OnPauseToggleOn;
             @PauseToggleOn.canceled -= instance.OnPauseToggleOn;
+            @Switch.started -= instance.OnSwitch;
+            @Switch.performed -= instance.OnSwitch;
+            @Switch.canceled -= instance.OnSwitch;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1380,6 +1409,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnReset(InputAction.CallbackContext context);
         void OnPauseToggleOn(InputAction.CallbackContext context);
+        void OnSwitch(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

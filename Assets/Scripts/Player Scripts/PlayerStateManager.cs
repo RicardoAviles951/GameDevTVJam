@@ -72,6 +72,8 @@ public class PlayerStateManager : MonoBehaviour
     public AudioClip whipSound;
     public bool Attacking { get; set; } = false;
     public AttackType attackType { get; set; } = AttackType.cutter;
+    [HideInInspector]
+    public GameObject hudRef;
 
 
     // Start is called before the first frame update
@@ -85,7 +87,7 @@ public class PlayerStateManager : MonoBehaviour
         hitStopController = GetComponent<HitStopController>();
         groundLayer = LayerMask.GetMask("Ground");
         attackHitParticles = Instantiate(attackHitParticles,attackPoint);
-
+        hudRef = GameObject.Find("PlayerHUD");
 
         currentState = moveState;
         currentState.EnterState(this);
@@ -95,6 +97,7 @@ public class PlayerStateManager : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
+        Debug.Log(attackType.ToString());
     }
 
     void FixedUpdate()
