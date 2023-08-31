@@ -18,6 +18,7 @@ public class PlayerMoveState : PlayerBaseState
     private float slipSpeed = 0;
     private int pos = 0;
 
+
     public override void EnterState(PlayerStateManager player)
     {
         //Debug.Log("In Move State");
@@ -30,39 +31,44 @@ public class PlayerMoveState : PlayerBaseState
 
 
         //Cache inputs
-        //bool isJumpInput    = player.playerInput.JumpInput();
         bool isJumpInput    = player.playerInput.JumpInput();
         bool isJumpHeld     = player.playerInput.JumpInputHeld();
         bool isJumpButtonUp = player.playerInput.JumpButtonUp();
         bool isAttackInput  = player.playerInput.AttackPressed();
-        //bool toggleDebug = player.playerInput.ToggleWeapon();
+        bool WeaponSwitched = player.playerInput.WeaponToggle();
 
         
 
         moveX = player.playerInput.HorizontalInput();
 
+        if(WeaponSwitched)
+        {
+            if(player.attackType == PlayerStateManager.AttackType.cutter)
+            {
+                player.attackType = PlayerStateManager.AttackType.whip;
+            }
+            else if(player.attackType == PlayerStateManager.AttackType.whip)
+            {
+                player.attackType = PlayerStateManager.AttackType.cutter;
+            }
+            player.hudRef.GetComponent<PlayerHudManager>().m_WeaponLabel.text = player.attackType.ToString().ToUpper();
+            Debug.Log(player.attackType.ToString());
+        }
         
         //Checks if player is on the ground
         isGrounded = CheckGround(player);
         if(isAttackInput && isGrounded)
         {
-            player.SwitchState(player.attackState);
+            if(player.attackType == PlayerStateManager.AttackType.cutter)
+            {
+                player.SwitchState(player.attackState);
+            }
+            else if(player.attackType == PlayerStateManager.AttackType.whip)
+            {
+                player.SwitchState(player.whipState);
+            }
+            
         }
-
-        //if (isattackinput && isgrounded)
-        //{
-        //    //if (toggledebug)
-        //    //{
-        //        player.switchstate(player.attackstate);
-        //    //}
-        //    //else if (toggledebug == false)
-        //    //{
-        //    //    player.switchstate(player.whipstate);
-        //    //}
-
-        //}
-
-
 
         if (isGrounded)
         {

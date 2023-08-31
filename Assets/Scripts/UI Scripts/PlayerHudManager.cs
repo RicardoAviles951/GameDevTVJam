@@ -19,6 +19,9 @@ public class PlayerHudManager : MonoBehaviour
     private VisualElement m_playerHudRoot; // The root of the player HUD UI
     private VisualElement m_HealthPizzaMonitor; // The health bar as depicted by pizza slices
     public List<Sprite> m_HealthPizzaSprites; // The list of pizza slices that make up the health bar
+    public VisualElement m_CurrentWeaponContainer; // The text for the current weapon
+    public Label m_WeaponLabel;
+    private GameObject playerRef;
     private VisualElement m_controlsContainer; // The container showing all active controls for incase you want to set up a Hidden//Visual in the pause menu
     
     private int m_currentSpriteIndex; // The index of the current pizza slice sprite
@@ -28,7 +31,11 @@ public class PlayerHudManager : MonoBehaviour
         m_playerHudRoot = GetComponent<UIDocument>().rootVisualElement;
         m_HealthPizzaMonitor = m_playerHudRoot.Q<VisualElement>("PlayerHealth");
         m_controlsContainer = m_playerHudRoot.Q<VisualElement>("ControlsContainer");
+        playerRef = GameObject.Find("Player");
+        m_WeaponLabel = m_playerHudRoot.Q<Label>("WeaponName");
+        m_WeaponLabel.text = playerRef.GetComponent<PlayerStateManager>().attackType.ToString().ToUpper();
         m_currentSpriteIndex = 0;
+        //Debug.Log(m_WeaponLabel.ToString());
     }
 
     private void OnEnable() {
