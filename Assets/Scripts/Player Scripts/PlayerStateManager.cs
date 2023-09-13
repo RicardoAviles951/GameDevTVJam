@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,12 +11,12 @@ public class PlayerStateManager : MonoBehaviour
         whip
     }
     PlayerBaseState currentState;
-    public PlayerIdleState idleState = new PlayerIdleState();
-    public PlayerMoveState moveState = new PlayerMoveState();
-    public PlayerAttackState attackState = new PlayerAttackState();
-    public PlayerWhipAttackState whipState = new PlayerWhipAttackState();
+    public PlayerIdleState idleState           = new PlayerIdleState();
+    public PlayerMoveState moveState           = new PlayerMoveState();
+    public PlayerAttackState attackState       = new PlayerAttackState();
+    public PlayerWhipAttackState whipState     = new PlayerWhipAttackState();
     public PlayerKnockbackState knockbackState = new PlayerKnockbackState();
-    public PlayerDeathState deathState = new PlayerDeathState();
+    public PlayerDeathState deathState         = new PlayerDeathState();
 
     [HideInInspector]
     public PlayerInputHandler playerInput;
@@ -75,40 +74,22 @@ public class PlayerStateManager : MonoBehaviour
     public AttackType attackType { get; set; } = AttackType.cutter;
     [HideInInspector]
     public GameObject hudRef;
-    //[HideInInspector]
-    [Header("Invulnerability")]
-    public bool isInvulnerable = false;
-    [SerializeField] private float invulnerableTimer = 0;
-    [SerializeField] private float defaultTime = 10.0f; //10 Seconds
-    [SerializeField] private bool timerEnabled = true;
-    public ParticleSystem partRef;
-    private ParticleSystem invulnerableParticles;
-    private bool particlesPlaying = false;
-    public AudioClip crunchSound;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        invulnerableTimer = defaultTime;
-        playerCollider    = GetComponent<Collider2D>();
-        playerInput       = GetComponent<PlayerInputHandler>();
-        rb                = GetComponent<Rigidbody2D>();
-        animator          = GetComponent<Animator>();
-        playerHealth      = GetComponent<PlayerHealth>();
+        playerCollider = GetComponent<Collider2D>();
+        playerInput  = GetComponent<PlayerInputHandler>();
+        rb           = GetComponent<Rigidbody2D>();
+        animator     = GetComponent<Animator>();
+        playerHealth = GetComponent<PlayerHealth>();
         hitStopController = GetComponent<HitStopController>();
-
-        groundLayer        = LayerMask.GetMask("Ground");
+        groundLayer = LayerMask.GetMask("Ground");
         attackHitParticles = Instantiate(attackHitParticles,attackPoint);
-        hudRef             = GameObject.Find("PlayerHUD");
+        hudRef = GameObject.Find("PlayerHUD");
 
-        if(invulnerableParticles == null)
-        {
-            var playerPos = gameObject.transform;
-            invulnerableParticles = Instantiate(partRef, playerPos);
-        }
-
-        currentState       = moveState;
+        currentState = moveState;
         currentState.EnterState(this);
     }
 
@@ -116,43 +97,7 @@ public class PlayerStateManager : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
-        if(isInvulnerable == true)
-        {
-            //Play Particle Effect
-            if(particlesPlaying == false)
-            {
-                invulnerableParticles.Play();
-                particlesPlaying = true;
-            }
-            
-            //Play song maybe
-            //Decrement Timer
-            if(timerEnabled == true)
-            {
-                if (invulnerableTimer > 0)
-                {
-                    invulnerableTimer -= Time.deltaTime;
-                }
-                else
-                {
-                    isInvulnerable = false;
-                    invulnerableTimer = defaultTime;
-                }
-                Debug.Log("Invulnerable Timer enabled!");
-                Debug.Log("Invulnerable timer: " + invulnerableTimer.ToString());
-            }
-            else
-            {
-                Debug.Log("Invulnerable Timer NOT enabled!");
-            }
-            
-        }
-        else
-        {
-            invulnerableParticles.Stop();
-            particlesPlaying = false;
-        }
-        //Debug.Log(attackType.ToString());
+        Debug.Log(attackType.ToString());
     }
 
     void FixedUpdate()

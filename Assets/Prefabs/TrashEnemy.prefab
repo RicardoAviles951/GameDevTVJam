@@ -187,8 +187,6 @@ MonoBehaviour:
   stunTime: 0.5
   knockbackX: 10
   knockbackY: 10
-  DeathparticleReference: {fileID: 6373095470626888185, guid: 79e499588f5c4594387a644a316d64b9, type: 3}
-  deathSound: {fileID: 8300000, guid: 2a2723dc5fa8de540a99b179b28ab274, type: 3}
 --- !u!114 &4183802718719470400
 MonoBehaviour:
   m_ObjectHideFlags: 0

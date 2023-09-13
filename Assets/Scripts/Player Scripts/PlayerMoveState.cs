@@ -207,11 +207,6 @@ public class PlayerMoveState : PlayerBaseState
                 player.goombaJump = true;
                 damageable.Kill(collision.gameObject);
             }
-            else if(player.isInvulnerable == true)
-            {
-                player.attackHitParticles.Play();
-                damageable.Kill(collision.gameObject);
-            }
             else //Take damage and get knocked back
             {   
                 
@@ -220,24 +215,9 @@ public class PlayerMoveState : PlayerBaseState
                 player.rb.velocity = new Vector2(0,0);
                 player.playerHealth.TakeDamage(damage);
                 player.SwitchState(player.knockbackState);
-                Debug.Log("OOPS");
             }
 
         }
-
-
-        var knots = GameObject.Find("GarlicKnots");
-        if(collision.gameObject == knots)
-        {
-           var garlic =  knots.GetComponent<GarlicKnotManager>();
-            garlic.Active = false;
-            garlic.FireParticles();
-            garlic.MoveOutPosition();
-            player.isInvulnerable = true;
-            SoundManager.Instance.PlaySound(player.crunchSound, 1);
-        }
-        
-        
     }
 
     public override void FixedUpdateState(PlayerStateManager player)

@@ -235,14 +235,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 4da09231-c5c7-4119-81e1-66b5090841f1
     m_ActionName: UI/PauseToggleOff[/Keyboard/escape,/Keyboard/p]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 024c4c17-3247-43c4-aa67-da997ae5d7a2
-    m_ActionName: Player/Switch[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b7cbb561-f632-4678-84be-03b28845a0bb
-    m_ActionName: Debug/Toggle[/Keyboard/y]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -344,13 +336,6 @@ MonoBehaviour:
   hitStopController: {fileID: 0}
   cutterSound: {fileID: 8300000, guid: 53becf750d8595f429f10a450ccd5186, type: 3}
   whipSound: {fileID: 8300000, guid: 383f14e8a3478b64dbbf135d1134514f, type: 3}
-  hudRef: {fileID: 0}
-  isInvulnerable: 0
-  invulnerableTimer: 0
-  defaultTime: 10
-  timerEnabled: 1
-  partRef: {fileID: 516611528224204504, guid: c7bde3a08106c8243948376ba3d5d297, type: 3}
-  crunchSound: {fileID: 8300000, guid: 23271d09cd80adf46bb53685e10bd2b1, type: 3}
 --- !u!114 &6807337840927397797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2f1fd8ab04578488bf97539a129d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isJumping: 0
 --- !u!70 &-9076726364776304084
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

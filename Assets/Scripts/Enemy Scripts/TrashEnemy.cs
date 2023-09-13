@@ -21,50 +21,28 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
     [SerializeField] float knockbackX = 10.0f;
     [SerializeField] float knockbackY = 10.0f;
     private bool isStunned = false;
-    public ParticleSystem DeathparticleReference;
-    private ParticleSystem DeathParticles;
-    [SerializeField] AudioClip deathSound;
 
 
     #region INTERFACE METHODS
 
     public void TakeDamage(int damage)
     {
-        var healthRemaining = currentHP - damage;
-
-        if(healthRemaining > 0)
+        if(currentHP > 0)
         {
             currentHP -= damage;
             timer = 0;
             currentState = EnemyState.Knockback;
-        }
-        else
+        } 
+        else if(currentHP <= 0)
         {
             Kill(gameObject);
         }
-
-        //if(currentHP > 0)
-        //{
-        //    currentHP -= damage;
-        //    timer = 0;
-        //    currentState = EnemyState.Knockback;
-        //} 
-        //else if(currentHP <= 0)
-        //{
-        //    Kill(gameObject);
-        //}
         
     }
 
     public void Kill(GameObject self)
     {
-        //Play Particle Effect
-        DeathParticles.transform.position = gameObject.transform.position;
-        DeathParticles.Play();
-        //Destroy Enemy Object
-        SoundManager.Instance.PlaySound(deathSound);
         Destroy(self);
-
     }
     #endregion 
     
@@ -90,18 +68,6 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
         // Additional initialization specific to GruntEnemy
         currentState = EnemyState.Idle;
         timer = 0;
-        GameObject particles = GameObject.Find("EnemyDeath");
-        if (particles == null)
-        {
-            Debug.Log("Enemy death particles created...");
-            DeathParticles = Instantiate(DeathparticleReference); //Create the particles if they don't exist yet
-            DeathParticles.transform.position = gameObject.transform.position;// Set to position of enemy
-        }
-        else
-        {
-            Debug.Log("Enemy death particles already exist!");
-        }
-        
     }
 
     protected override void Update()
