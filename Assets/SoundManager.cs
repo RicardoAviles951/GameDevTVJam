@@ -23,6 +23,11 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        musicSource.Play();
+    }
+
     public void PlaySound(AudioClip clip, float pitch = 1.0f)
     {
         effectsSource.clip = clip;
