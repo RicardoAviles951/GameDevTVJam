@@ -24,5 +24,8 @@ public class PlayerIdleState : PlayerBaseState
         
     }
 
-
+    public override void OnTriggerEnter(PlayerStateManager player, Collider2D other)
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class PlayerStateManager : MonoBehaviour
 {
@@ -52,7 +53,10 @@ public class PlayerStateManager : MonoBehaviour
     [HideInInspector]
     public Collider2D playerCollider;
     public AudioClip jumpClip;
+    public AudioClip superJumpClip;
     public AudioClip stepClip;
+    public ParticleSystem stepDust;
+    private ParticleSystem dustobj;
 
     [Header("Knockback State Variables")]
     public float horizontalKnockbackForce = 10f;
@@ -85,11 +89,22 @@ public class PlayerStateManager : MonoBehaviour
     private ParticleSystem invulnerableParticles;
     private bool particlesPlaying = false;
     public AudioClip crunchSound;
+    [HideInInspector]
+    public Camera cam;
+    public float shakeDur = .25f;
+    public float shakeMag = .25f;
+    public AudioClip coinSound1, coinSound2, coinSound3;
+    public List<AudioClip> coinSounds = new List<AudioClip>();
+    [HideInInspector] public bool coinCollected = false;
+    public UnityEvent UICoinCounter;
+    [HideInInspector] public TrailRenderer trail;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        GameObject dustPoint = GameObject.Find("Dust");
+        dustobj = Instantiate(stepDust,dustPoint.transform);
         invulnerableTimer = defaultTime;
         playerCollider    = GetComponent<Collider2D>();
         playerInput       = GetComponent<PlayerInputHandler>();
@@ -97,6 +112,11 @@ public class PlayerStateManager : MonoBehaviour
         animator          = GetComponent<Animator>();
         playerHealth      = GetComponent<PlayerHealth>();
         hitStopController = GetComponent<HitStopController>();
+        cam = Camera.main;
+        coinSounds.Add(coinSound1);
+        coinSounds.Add(coinSound2);
+        coinSounds.Add(coinSound3);
+        trail = GetComponent<TrailRenderer>();
 
         groundLayer        = LayerMask.GetMask("Ground");
         attackHitParticles = Instantiate(attackHitParticles,attackPoint);
@@ -138,12 +158,12 @@ public class PlayerStateManager : MonoBehaviour
                     isInvulnerable = false;
                     invulnerableTimer = defaultTime;
                 }
-                Debug.Log("Invulnerable Timer enabled!");
-                Debug.Log("Invulnerable timer: " + invulnerableTimer.ToString());
+                //Debug.Log("Invulnerable Timer enabled!");
+                //Debug.Log("Invulnerable timer: " + invulnerableTimer.ToString());
             }
             else
             {
-                Debug.Log("Invulnerable Timer NOT enabled!");
+                //Debug.Log("Invulnerable Timer NOT enabled!");
             }
             
         }
@@ -165,7 +185,12 @@ public class PlayerStateManager : MonoBehaviour
         currentState.OnCollisionEnter(this, collision);
     }
 
-   public void SwitchState(PlayerBaseState state)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        currentState.OnTriggerEnter(this, collision);
+    }
+
+    public void SwitchState(PlayerBaseState state)
     {
         currentState = state;
         state.EnterState(this);
@@ -195,5 +220,12 @@ public class PlayerStateManager : MonoBehaviour
       
     }
 
+    public void ReleaseDust()
+    {
+        dustobj.Play();
+        //Debug.Log("Dust released");
+    }
+
+    
 }
 

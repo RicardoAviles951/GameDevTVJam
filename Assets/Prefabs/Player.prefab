@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &737523579963204156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6866262854713532323}
+  m_Layer: 0
+  m_Name: Dust
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6866262854713532323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737523579963204156}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6807337840927397800}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6807337840927397802
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,6 +73,7 @@ Transform:
   m_Children:
   - {fileID: 6807337842545930023}
   - {fileID: 3490656253089250169}
+  - {fileID: 6866262854713532323}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -330,7 +362,9 @@ MonoBehaviour:
   goombaJump: 0
   playerCollider: {fileID: 0}
   jumpClip: {fileID: 8300000, guid: 633606d25e94b1c499be978c8076e84a, type: 3}
+  superJumpClip: {fileID: 8300000, guid: 967b3eda61bf0f5418647d5fd4e71731, type: 3}
   stepClip: {fileID: 8300000, guid: d6e878de03f7d1d408f19ddbce9e8144, type: 3}
+  stepDust: {fileID: 1724724413450107585, guid: 44c7feabf9d9efc4c8358a8438cdc7c1, type: 3}
   horizontalKnockbackForce: 10
   verticalKnockbackForce: 5
   stunDuration: 0.5
@@ -351,6 +385,30 @@ MonoBehaviour:
   timerEnabled: 1
   partRef: {fileID: 516611528224204504, guid: c7bde3a08106c8243948376ba3d5d297, type: 3}
   crunchSound: {fileID: 8300000, guid: 23271d09cd80adf46bb53685e10bd2b1, type: 3}
+  cam: {fileID: 0}
+  shakeDur: 0.25
+  shakeMag: 0.25
+  coinSound1: {fileID: 8300000, guid: 074d78a36933ce84b80b792ff071a2a4, type: 3}
+  coinSound2: {fileID: 8300000, guid: 802f4353beee446429923e9e467864cf, type: 3}
+  coinSound3: {fileID: 8300000, guid: 293363443620da347bd0f4990da4d2a4, type: 3}
+  coinSounds: []
+  coinCollected: 0
+  UICoinCounter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 134173747722641126, guid: cc56a3a3ebb7f8e4f99089aa77136fa5, type: 3}
+        m_TargetAssemblyTypeName: PlayerHudManager, Assembly-CSharp
+        m_MethodName: CoinsChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  trail: {fileID: 0}
 --- !u!114 &6807337840927397797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,7 +501,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.21052551
+        value: 0.2543888
         inSlope: 0
         outSlope: 0
         tangentMode: 0

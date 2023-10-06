@@ -68,7 +68,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public bool JumpButtonUp()
     {
-        Debug.Log("Jump released");
+        //Debug.Log("Jump released");
         return jumpAction.WasReleasedThisFrame();
     }
 
@@ -91,7 +91,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool WeaponToggle()
     {
-        Debug.Log("Weapon Switched");
+        //Debug.Log("Weapon Switched");
         return switchAction.triggered;
     }
 

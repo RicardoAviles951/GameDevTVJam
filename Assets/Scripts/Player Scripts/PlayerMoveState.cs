@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +18,7 @@ public class PlayerMoveState : PlayerBaseState
 
     private float coyoteTimer;
     private float slipSpeed = 0;
-    private int pos = 0;
+    private bool inAirSuperJump = false;
 
 
     public override void EnterState(PlayerStateManager player)
@@ -55,6 +57,9 @@ public class PlayerMoveState : PlayerBaseState
             Debug.Log(player.attackType.ToString());
         }
         
+
+
+
         //Checks if player is on the ground
         isGrounded = CheckGround(player);
         if(isAttackInput && isGrounded)
@@ -70,21 +75,68 @@ public class PlayerMoveState : PlayerBaseState
             
         }
 
+        //Jump input + Coyote 
+        if (isJumpInput)
+        {
+            if (coyoteTimer > 0) //Checks if player has time to jump when not grounded
+            {
+                isJumping = true;
+                jumpTimer = 0; //
+
+                player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpForce);//Applies upward change in velocity 
+                SoundManager.Instance.PlaySound(player.jumpClip, 1);//Plays sound once
+            }
+            if (isGrounded == false)//If we press the jump key after while in the air after jumping, then we buffer the input.
+            {
+                buffered = true;
+
+            }
+
+        }
+
+        //Variable Jump Height
+        if (isJumpHeld && isJumping)//In the air after jumping and holding the jump button
+        {
+            //There is a certain window of time that the player has to hold onto the jump button to increase the total height of their jump.
+            
+            if (jumpTimer < player.maxJumpTime) 
+            {
+                player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpForce); //Keeps increasing upward velocity until the max jump time is reached. 
+                jumpTimer += Time.deltaTime;//Increments jump timer until max is reached.
+            }
+            else //If the max jump time has been reached, then the player is no longer able to increase their jump height.
+            {
+                isJumping = false;
+            }
+        }
+        if (isJumpHeld == false) //prevents double jump
+        {
+           isJumping = false;
+
+        }
+
+        if (isJumpButtonUp)//prevents double jump from coyote time
+        {
+            coyoteTimer = 0;
+        }
+        //Input Buffering 
         if (isGrounded)
         {
-            if(buffered)
+            if(buffered) //Player has hit the ground and buffered is flagged
             {
                 jumpInputBufferTime = jumpBufferTimer;
-                jumpBufferTimer = 0;
-                //bufferjump = true;
-                if(jumpInputBufferTime < .2f)
+                jumpBufferTimer = 0;//Reset the timer that increments when you press the jump button before landing.
+                if(jumpInputBufferTime < .2f)//Actually checks if the buffered jump will process.
                 {
                     bufferjump = true;
-                    
                 }
+
                 buffered = false;
+                
             }
             coyoteTimer = player.coyoteTime;
+
+            TrailReset(player);
         }
         else 
         {
@@ -102,49 +154,9 @@ public class PlayerMoveState : PlayerBaseState
 
 
 
-        //Single Frame Check
-        if (isJumpInput)
-        {
-            if(coyoteTimer > 0)
-            {
-                isJumping = true;
-                jumpTimer = 0;
-                player.rb.velocity = new Vector2(player.rb.velocity.x,player.jumpForce);
-                SoundManager.Instance.PlaySound(player.jumpClip,1);
-                isGrounded = false;
-            }
-            if(isGrounded == false)
-            {
-                buffered = true;
-                float rnd = Random.Range(1.2f, 1.5f);
-                SoundManager.Instance.PlaySound(player.jumpClip, rnd);
+        
 
-            }
-             
-        }
-
-        if (isJumpHeld && isJumping)
-        {
-            if (jumpTimer < player.maxJumpTime)
-            {
-                player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpForce);
-                jumpTimer += Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
-            }
-        }
-        if(isJumpHeld == false)
-        {
-            isJumping = false;
-            
-        }
-
-        if(isJumpButtonUp)
-        {
-            coyoteTimer = 0;
-        }
+        
 
         
 
@@ -220,7 +232,7 @@ public class PlayerMoveState : PlayerBaseState
                 player.rb.velocity = new Vector2(0,0);
                 player.playerHealth.TakeDamage(damage);
                 player.SwitchState(player.knockbackState);
-                Debug.Log("OOPS");
+                //bhhDebug.Log("OOPS");
             }
 
         }
@@ -251,7 +263,9 @@ public class PlayerMoveState : PlayerBaseState
         if(bufferjump)
         {
             player.rb.velocity = new Vector2(player.rb.velocity.x,player.jumpForce*2);
-            
+            Debug.Log("SUPER JUMP");
+            SoundManager.Instance.PlaySound(player.superJumpClip, 1);
+            player.StartCoroutine(WaitAFrame(player));
             bufferjump = false;
         }
 
@@ -371,13 +385,51 @@ private void UpdateAnimationParameters(PlayerStateManager player, bool isGrounde
     player.animator.SetBool("isRunning", isRunning);
 
     bool isGoingUp = player.rb.velocity.y > 0;
-    Debug.Log("is going up? " + isGoingUp);
+    //Debug.Log("is going up? " + isGoingUp);
     player.animator.SetBool("IsGoingUp", isGoingUp);
 
     player.animator.SetBool("onGround", isGrounded);
 }
 
-    
+    public override void OnTriggerEnter(PlayerStateManager player, Collider2D other)
+    {
+        
+        if(other.gameObject.tag == "Coin") //Check if coin object
+        {
+            if(player.coinCollected == false)//Check to make sure coin has not been collected already
+            {
+                Debug.Log("Collected a coin!");
+                SoundManager.Instance.PlaySound(RandomClip(player));//Play coin pickup sound
+                other.gameObject.GetComponent<CoinManager>().KillCoin();//Destroy coin
+                GameStateController.CoinsCollected += 1;//Add to coin counter 
+                //Send message to UI to update 
+                player.UICoinCounter.Invoke();
+            }
+            
+        }
+    }
 
-    
+    private AudioClip RandomClip(PlayerStateManager player)//Picks a random clip
+    {
+       int clip = Random.Range(0, player.coinSounds.Count);
+        return player.coinSounds[clip];
+    }
+
+    private void TrailColor(PlayerStateManager player)
+    {
+        player.trail.startColor = Color.green;
+        player.trail.startWidth = 1;
+    }
+
+    private void TrailReset(PlayerStateManager player)
+    {
+        player.trail.startColor = Color.white;
+        player.trail.startWidth = .25f;
+    }
+    private IEnumerator WaitAFrame(PlayerStateManager player)
+    {
+        Debug.Log("Waiting one frame...");
+        yield return new WaitForSeconds(.10f);
+        TrailColor(player);
+    }
 }

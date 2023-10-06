@@ -42,4 +42,8 @@ public class PlayerKnockbackState : PlayerBaseState
         
     }
 
+    public override void OnTriggerEnter(PlayerStateManager player, Collider2D other)
+    {
+        
+    }
 }
