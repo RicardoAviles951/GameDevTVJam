@@ -1,7 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
 
@@ -13,6 +13,11 @@ public class CameraManager : MonoBehaviour
     private Transform camTransform;
     private string currentSceneName;
     public Vector3 position;
+    [Header("Camera Shake Parameters")]
+    public float shakeDuration = 0f;
+    public float shakeMagnitude = 0.7f;
+    public float dampingSpeed = 1.0f;
+    public bool isShaking = false;
 
 
     private void Awake()
@@ -54,5 +59,29 @@ public class CameraManager : MonoBehaviour
             _camera.gameObject.GetComponent<PixelPerfectCamera>().assetsPPU = 16;
         }
 
+        if(shakeDuration > 0f)
+        {
+            Vector3 localPos = camTransform.localPosition;
+            Debug.Log("Camera shake!!");
+            isShaking = true;
+            camTransform.localPosition = localPos + Random.insideUnitSphere * shakeMagnitude;
+            shakeDuration -= Time.deltaTime * dampingSpeed;
+        }
+        else
+        {
+            isShaking = false;
+            shakeDuration = 0;
+        }
+
     }
+
+    public void CameraShake(float duration, float magnitude)
+    {
+        Debug.Log("Camera Shake called...");
+        shakeDuration = duration;
+        shakeMagnitude = magnitude;
+
+    }
+
+   
 }

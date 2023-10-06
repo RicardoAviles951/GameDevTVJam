@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Folder/PizzaParlor.uss?fileID=7433441132597879392&amp;guid=254853f3fc28f19498f15a10a0a92e41&amp;type=3#PizzaParlor" />
-    <ui:VisualElement name="PlayerHud" style="flex-grow: 1; flex-direction: column;">
+    <ui:VisualElement name="PlayerHud" style="flex-grow: 1; flex-direction: column; -unity-text-outline-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); opacity: 1; transition-property: opacity; transition-duration: 0.5s;">
         <ui:VisualElement name="Top" style="flex-direction: row; flex-grow: 1;">
-            <ui:VisualElement style="flex-direction: row; align-items: flex-start; justify-content: flex-start; position: absolute; height: 335px; width: 280px; background-color: rgba(255, 255, 255, 0.67); border-top-left-radius: 12px; border-bottom-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px;" />
+            <ui:VisualElement style="flex-direction: row; align-items: flex-start; justify-content: flex-start; position: absolute; height: 335px; width: 280px; background-color: rgba(255, 255, 255, 0.17); border-top-left-radius: 12px; border-bottom-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px;" />
             <ui:VisualElement name="Q1" class="container" style="flex-grow: 1;">
                 <ui:VisualElement name="PlayerHealth" style="width: 150px; height: 150px; max-width: 150px; max-height: 150px; min-width: 50px; min-height: 50px; background-image: url(&apos;project://database/Assets/Sprites/UI%20Sprites/HealthSprites/ui_health_pizza_strip5.png?fileID=1341859632&amp;guid=4fe24d7be378efb4c95c3b5856280d3d&amp;type=3#health_pizza_0&apos;);" />
                 <ui:VisualElement name="ControlsContainer" style="flex-direction: row;">
@@ -13,7 +13,11 @@
                     <ui:Label text="CUTTER" display-tooltip-when-elided="true" name="WeaponName" style="-unity-font: url(&apos;project://database/Assets/UI%20Folder/pixel_pirate.ttf?fileID=12800000&amp;guid=3407cce2f2196624f942c2fe5f6dc168&amp;type=3#pixel_pirate&apos;); -unity-font-definition: initial; font-size: 32px; align-items: stretch; justify-content: flex-start; -unity-text-align: middle-center; width: 238px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="Q2" class="container" style="flex-grow: 1;" />
+            <ui:VisualElement name="Q2" class="container" style="flex-grow: 1;">
+                <ui:VisualElement name="CoinImage" style="height: 180px; width: 139px; position: absolute; left: 640px; background-image: url(&apos;project://database/Assets/Sprites/UI%20Sprites/CoinSprites/CoinUI_sprite.png?fileID=21300000&amp;guid=764c3e5c77bb55d4a87b1db6a8e5d6c5&amp;type=3#CoinUI_sprite&apos;); -unity-background-scale-mode: scale-to-fit; top: -64px; flex-direction: row;">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="coinsAmount" style="flex-direction: column; width: 152px; -unity-text-align: upper-center; position: absolute; left: -164px; height: 118px; top: 36px; font-size: 80px; -unity-font-style: bold; -unity-font: url(&apos;project://database/Assets/UI%20Folder/pixel_pirate.ttf?fileID=12800000&amp;guid=3407cce2f2196624f942c2fe5f6dc168&amp;type=3#pixel_pirate&apos;); -unity-font-definition: initial;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Bottom" style="flex-grow: 1; flex-direction: row;">
             <ui:VisualElement name="Q3" class="container" style="flex-grow: 1;" />

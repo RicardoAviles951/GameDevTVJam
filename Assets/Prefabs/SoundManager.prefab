@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 4232796750287627385}
   effectsSource: {fileID: 4232796750095511266}
+  MorningPizza: {fileID: 8300000, guid: 472aad9e3d91abc409c5705f887adaf2, type: 3}
+  PizzaRun: {fileID: 8300000, guid: d0afb46f05536bc4ea4d3ab3d044a1b3, type: 3}
 --- !u!1 &4232796750095511277
 GameObject:
   m_ObjectHideFlags: 0

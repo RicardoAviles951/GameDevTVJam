@@ -10,6 +10,7 @@ public class GameStateController : MonoBehaviour
     private InputSystem PauseControls;
     private InputAction pauseAction;
     public static bool isPaused = false;
+    public static int CoinsCollected = 0;
 
 
     private void Awake()

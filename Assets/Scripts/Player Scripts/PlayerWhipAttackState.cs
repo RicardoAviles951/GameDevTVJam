@@ -33,6 +33,11 @@ public class PlayerWhipAttackState : PlayerBaseState
         //Nothing here
     }
 
+    public override void OnTriggerEnter(PlayerStateManager player, Collider2D other)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void UpdateState(PlayerStateManager player)
     {
         Vector2 size = new Vector2(player.attackRangeLength, player.attackRangeHeight);
@@ -47,6 +52,7 @@ public class PlayerWhipAttackState : PlayerBaseState
                 if (player.Attacking == false)
                 {
                     player.attackHitParticles.Play();
+                    player.cam.GetComponent<CameraManager>().CameraShake(player.shakeDur, player.shakeMag);
                     enemy.TakeDamage(player.attackPower);
                     player.StartCoroutine(player.hitStopController.HitStopCoroutine());
                     SoundManager.Instance.PlaySound(player.damageSound, .75f);

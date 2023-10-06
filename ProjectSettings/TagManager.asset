@@ -13,6 +13,7 @@ TagManager:
   - Dialogue System
   - Enemy
   - FloorCheck
+  - Coin
   layers:
   - Default
   - TransparentFX

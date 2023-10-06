@@ -93,13 +93,13 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
         GameObject particles = GameObject.Find("EnemyDeath");
         if (particles == null)
         {
-            Debug.Log("Enemy death particles created...");
+            //Debug.Log("Enemy death particles created...");
             DeathParticles = Instantiate(DeathparticleReference); //Create the particles if they don't exist yet
             DeathParticles.transform.position = gameObject.transform.position;// Set to position of enemy
         }
         else
         {
-            Debug.Log("Enemy death particles already exist!");
+            //Debug.Log("Enemy death particles already exist!");
         }
         
     }
@@ -168,7 +168,7 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
 
     protected override void AttackBehavior()
     {
-        print("Currently attacking");
+        //print("Currently attacking");
         //Play attack animations 
         
         //Check Hitboxes
@@ -213,7 +213,7 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
     protected override void Die()
     {
         // Implement GruntEnemy death logic here
-        Debug.Log("GruntEnemy dies!");
+        //Debug.Log("GruntEnemy dies!");
         Destroy(gameObject); // Optional: Destroy the GameObject when the enemy dies
     }
 
@@ -235,7 +235,7 @@ public class TrashEnemy : EnemyBaseClass, IDamageable
     protected override void Attack(int damageAmount)
     {
         // Implement GruntEnemy attack logic here
-        Debug.Log("GruntEnemy attacks!");
+        //Debug.Log("GruntEnemy attacks!");
         if (player != null)
         {
             player.TakeDamage(damageAmount);

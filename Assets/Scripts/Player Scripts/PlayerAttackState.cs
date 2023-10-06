@@ -43,6 +43,7 @@ public class PlayerAttackState : PlayerBaseState
                 if(player.Attacking == false)
                 {
                     player.attackHitParticles.Play();
+                    player.cam.GetComponent<CameraManager>().CameraShake(player.shakeDur, player.shakeMag);
                     enemy.TakeDamage(player.attackPower);
                     player.StartCoroutine(player.hitStopController.HitStopCoroutine());
                     SoundManager.Instance.PlaySound(player.damageSound, .75f);
@@ -81,4 +82,8 @@ public class PlayerAttackState : PlayerBaseState
         return stateInfo.normalizedTime >= 1f; // Animation is considered finished if the normalized time is equal to or greater than 1
     }
 
+    public override void OnTriggerEnter(PlayerStateManager player, Collider2D other)
+    {
+        throw new System.NotImplementedException();
+    }
 }

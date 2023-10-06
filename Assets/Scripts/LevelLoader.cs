@@ -10,11 +10,12 @@ public class LevelLoader : MonoBehaviour
     private static LevelLoader instance;
     public static LevelLoader Instance { get { return instance; } }
     private string currentSceneName;
-    private bool dialogueStop;
+    //private bool dialogueStop;
     public GameObject player;
     public GameObject floorCheck;
     public DialogueRunner drYarn;
     public InMemoryVariableStorage variableStorage;
+    public FadeController fadeController;
     
     
     void Awake()
@@ -28,7 +29,7 @@ public class LevelLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dialogueStop = false;
+       // dialogueStop = false;
         player = GameObject.FindGameObjectWithTag("Player");
         floorCheck = GameObject.FindGameObjectWithTag("FloorCheck");
         drYarn = GameObject.FindGameObjectWithTag("Dialogue System").GetComponent<DialogueRunner>();
@@ -46,10 +47,12 @@ public class LevelLoader : MonoBehaviour
         Debug.Log("LevelSwitch");
         if(collision.gameObject.tag == "Player")
         {
+            fadeController.FadeOut();
             Debug.Log("Scene should load");
             if(currentSceneName == "KitchenHub")
             {
-                SceneManager.LoadScene("LevelPrototype");
+               // SceneManager.LoadScene("LevelPrototype");
+                StartCoroutine(NextScene("LevelPrototype"));
                 StopDialogue();
                 player.transform.position = new Vector3(-13,-10.0030003f,0);
                 this.gameObject.transform.position = new Vector3(-1.83000004f,-10.6599998f,0);
@@ -57,7 +60,8 @@ public class LevelLoader : MonoBehaviour
             }
             if(currentSceneName == "LevelPrototype")
             {
-                SceneManager.LoadScene("KitchenHub");
+               // SceneManager.LoadScene("Level2");
+                StartCoroutine(NextScene("Level2"));
                 StopDialogue();
                 player.transform.position = new Vector3(4.88000011f, -3.6400001f, 0);
                 this.gameObject.transform.position = new Vector3(-1.83000004f, -10.6599998f, 0);
@@ -74,6 +78,13 @@ public class LevelLoader : MonoBehaviour
             bool yes = true;
             variableStorage.SetValue("$yes", yes);
         }
+    }
+
+    private IEnumerator NextScene(string scene)
+    {
+        Debug.Log("Loading next scene");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(scene);
     }
     
 }
