@@ -19,8 +19,8 @@ public class PlayerAttackState : PlayerBaseState
         player.animator.SetBool("isAttackCutter", true);
 
         //Debug Information
-        Debug.Log("Cutter Attack State");
-        Debug.Log("Cutter Attacking ?" + player.Attacking);
+        //Debug.Log("Cutter Attack State");
+        //Debug.Log("Cutter Attacking ?" + player.Attacking);
 
         
     }
@@ -53,7 +53,7 @@ public class PlayerAttackState : PlayerBaseState
             }
             else //No enemies hit
             {
-                Debug.Log("No enemy hit");
+                //Debug.Log("No enemy hit");
             }
         }
         //Checks if animation is finished
@@ -84,6 +84,6 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnTriggerEnter(PlayerStateManager player, Collider2D other)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

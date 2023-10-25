@@ -39,6 +39,7 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        position = new Vector3(0, 0, -10);
         camTransform.position = position;
     }
 

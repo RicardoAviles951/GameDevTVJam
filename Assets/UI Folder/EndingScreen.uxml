@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Folder/buttonending.uss?fileID=7433441132597879392&amp;guid=b37b5ee9132da5745805142cc26ba277&amp;type=3#buttonending" />
+    <ui:VisualElement name="WholeScreen" style="height: 100%; width: 100%; background-color: rgba(228, 212, 212, 0.93); background-image: url(&apos;project://database/Assets/Sprites/Environment/bg_pizza_rest.png?fileID=2800000&amp;guid=e6ea2c00ef77e3347ada8580c00f09c4&amp;type=3#bg_pizza_rest&apos;); -unity-background-image-tint-color: rgba(255, 255, 255, 0.18);">
+        <ui:VisualElement name="EndingText" style="height: 380px; -unity-font: initial; -unity-text-align: middle-center; flex-direction: column; align-items: center; justify-content: center;">
+            <ui:Label text="Delivery Successful!" display-tooltip-when-elided="true" style="font-size: 102px; width: 100%; -unity-font: url(&apos;project://database/Assets/UI%20Folder/pixel_pirate.ttf?fileID=12800000&amp;guid=3407cce2f2196624f942c2fe5f6dc168&amp;type=3#pixel_pirate&apos;); -unity-font-style: bold; -unity-font-definition: initial; height: 213px; color: rgb(86, 76, 75);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="TipDisplay" style="height: 262px; width: 100%; flex-direction: row;">
+            <ui:VisualElement name="TipLabel" style="right: auto; left: 0; width: 964px; justify-content: center; align-items: center; -unity-font-definition: initial;">
+                <ui:Label text="Total Tip : " display-tooltip-when-elided="true" style="font-size: 96px; -unity-font-style: bold-and-italic; -unity-font: url(&apos;project://database/Assets/UI%20Folder/pixel_pirate.ttf?fileID=12800000&amp;guid=3407cce2f2196624f942c2fe5f6dc168&amp;type=3#pixel_pirate&apos;); color: rgb(86, 76, 75);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="TipCount" style="left: 0; width: 952px; flex-direction: row;">
+                <ui:VisualElement name="Sprite" style="width: 324px; background-image: url(&apos;project://database/Assets/Sprites/Interactables/pick_ups_coin_strip.png?fileID=-499860553&amp;guid=ea59da03631afaa499b8a9c20f332a7a&amp;type=3#pick_ups_coin_strip_1&apos;); -unity-background-scale-mode: stretch-to-fill;" />
+                <ui:VisualElement name="Count" style="width: 50%; align-items: flex-start; justify-content: center; flex-direction: column; flex-wrap: nowrap; left: 0; -unity-text-align: upper-center; top: 0; bottom: 0;">
+                    <ui:Label text="25" display-tooltip-when-elided="true" name="CoinCount" style="align-items: flex-end; height: 50%; width: 100%; justify-content: flex-start; -unity-font: url(&apos;project://database/Assets/UI%20Folder/pixel_pirate.ttf?fileID=12800000&amp;guid=3407cce2f2196624f942c2fe5f6dc168&amp;type=3#pixel_pirate&apos;); -unity-font-style: bold; font-size: 112px; bottom: auto; top: 0; -unity-font-definition: initial; color: rgb(86, 76, 75);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="DeathCounter" style="height: 164px; flex-direction: row; justify-content: space-around; align-items: center;">
+            <ui:VisualElement name="PizzasDropped">
+                <ui:Label text="Pizzas Dropped:" display-tooltip-when-elided="true" name="Lbl_pizzasdropped" style="-unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/UI%20Folder/pixel_pirate.ttf?fileID=12800000&amp;guid=3407cce2f2196624f942c2fe5f6dc168&amp;type=3#pixel_pirate&apos;); font-size: 96px; -unity-font-style: bold-and-italic; left: -36px; color: rgb(86, 76, 75);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="DroppedCounter" tabindex="0" style="-unity-font-style: bold; font-size: 96px; -unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/UI%20Folder/pixel_pirate.ttf?fileID=12800000&amp;guid=3407cce2f2196624f942c2fe5f6dc168&amp;type=3#pixel_pirate&apos;);">
+                <ui:Label text="10&#10;" display-tooltip-when-elided="true" name="Lbl_droppedcounter" style="left: -164px; top: 24px; color: rgb(86, 76, 75);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Buttons" style="height: 25%; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-around; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);">
+            <ui:Button text="Restart" display-tooltip-when-elided="true" name="restart-button" class="button-style" />
+            <ui:Button text="Exit" display-tooltip-when-elided="true" enable-rich-text="false" name="exit-button" class="button-style" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

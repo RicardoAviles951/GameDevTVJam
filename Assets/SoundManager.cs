@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
     public AudioSource musicSource, effectsSource;
     public AudioClip MorningPizza, PizzaRun;
+    [Range(0f, 1f)] public float maxVolume = .50f;
 
     private Dictionary<string, AudioClip> sceneMusic = new Dictionary<string, AudioClip>();
 
@@ -26,7 +27,8 @@ public class SoundManager : MonoBehaviour
 
         sceneMusic.Add("KitchenHub", MorningPizza);
         sceneMusic.Add("LevelPrototype", PizzaRun);
-        sceneMusic.Add("Level2", MorningPizza);
+        sceneMusic.Add("Level2", PizzaRun);
+        sceneMusic.Add("EndScene", MorningPizza);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -36,10 +38,10 @@ public class SoundManager : MonoBehaviour
     {
         string sceneName = scene.name;
 
-        if (sceneMusic.ContainsKey(sceneName))
+        if (musicSource != null && sceneMusic.ContainsKey(sceneName))
         {
-            //musicSource.clip = sceneMusic[sceneName];
-            //FadeIn(musicSource.clip);
+            musicSource.clip = sceneMusic[sceneName];
+            FadeIn(musicSource.clip);
         }
     }
 
@@ -51,10 +53,15 @@ public class SoundManager : MonoBehaviour
 
     public void FadeIn(AudioClip music)
     {
-        musicSource.clip = music;
-        musicSource.volume = 0;
-        musicSource.Play();
-        StartCoroutine(Delay());
+        if (musicSource != null)
+        {
+            musicSource.clip = music;
+            musicSource.volume = 0;
+            musicSource.Play();
+            StartCoroutine(Delay());
+        }
+        //musicSource.clip = music;
+        
         
        
     }
@@ -68,14 +75,27 @@ public class SoundManager : MonoBehaviour
 
     private IEnumerator Delay()
     {
-        while (musicSource.volume < 1)
+        while (musicSource.volume < maxVolume)
         {
             musicSource.volume += .25f*Time.deltaTime;
             yield return null;
            // Debug.Log("Music volume " + musicSource.volume);
         }
 
-        musicSource.volume = 1;
+        musicSource.volume = maxVolume;
+    }
+
+    public void StopMusic()
+    {
+        musicSource.Stop();
+    }
+    public void PauseMusic()
+    {
+        musicSource.Pause();
+    }
+    public void ResumeMusic()
+    {
+        musicSource.Play();
     }
 
 }

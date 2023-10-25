@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,12 +17,11 @@ public class PlayerMoveState : PlayerBaseState
 
     private float coyoteTimer;
     private float slipSpeed = 0;
-    private bool inAirSuperJump = false;
 
 
     public override void EnterState(PlayerStateManager player)
     {
-        //Debug.Log("In Move State");
+        Debug.Log("In Move State");
     }
 
    
@@ -45,6 +43,7 @@ public class PlayerMoveState : PlayerBaseState
 
         if(WeaponSwitched)
         {
+            SoundManager.Instance.PlaySound(player.SwitchSound);
             if(player.attackType == PlayerStateManager.AttackType.cutter)
             {
                 player.attackType = PlayerStateManager.AttackType.whip;
@@ -53,7 +52,11 @@ public class PlayerMoveState : PlayerBaseState
             {
                 player.attackType = PlayerStateManager.AttackType.cutter;
             }
-            player.hudRef.GetComponent<PlayerHudManager>().m_WeaponLabel.text = player.attackType.ToString().ToUpper();
+            if(player.hudRef != null)
+            {
+                player.hudRef.GetComponent<PlayerHudManager>().m_WeaponLabel.text = player.attackType.ToString().ToUpper();
+            }
+            
             Debug.Log(player.attackType.ToString());
         }
         

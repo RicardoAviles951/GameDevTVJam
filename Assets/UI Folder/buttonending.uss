@@ -1,0 +1,71 @@
+.button-style {
+    width: 20%;
+    height: 50%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    -unity-font-style: bold;
+    font-size: 36px;
+    -unity-font-definition: initial;
+    -unity-font: url('project://database/Assets/UI%20Folder/pixel_pirate.ttf?fileID=12800000&guid=3407cce2f2196624f942c2fe5f6dc168&type=3#pixel_pirate');
+    color: rgb(86, 76, 75);
+    background-color: rgba(252, 140, 92, 255);
+    border-left-color: rgba(219, 128, 15, 255);
+    border-right-color: rgba(219, 128, 15, 255);
+    border-top-color: rgba(219, 128, 15, 255);
+    border-bottom-color: rgba(219, 128, 15, 255);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    -unity-text-outline-width: 0;
+}
+
+.button-style:hover {
+    width: 20%;
+    height: 50%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    -unity-font-style: bold;
+    font-size: 36px;
+    -unity-font-definition: initial;
+    -unity-font: url('project://database/Assets/UI%20Folder/pixel_pirate.ttf?fileID=12800000&guid=3407cce2f2196624f942c2fe5f6dc168&type=3#pixel_pirate');
+    color: rgb(86, 76, 75);
+    background-color: rgb(212, 114, 73);
+    border-left-color: rgb(219, 128, 15);
+    border-right-color: rgb(219, 128, 15);
+    border-top-color: rgb(219, 128, 15);
+    border-bottom-color: rgb(219, 128, 15);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    -unity-text-outline-width: 0;
+}
+
+.button-style:active {
+    width: 20%;
+    height: 50%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    -unity-font-style: bold;
+    font-size: 36px;
+    -unity-font-definition: initial;
+    -unity-font: url('project://database/Assets/UI%20Folder/pixel_pirate.ttf?fileID=12800000&guid=3407cce2f2196624f942c2fe5f6dc168&type=3#pixel_pirate');
+    color: rgb(86, 76, 75);
+    background-color: rgb(214, 188, 177);
+    border-left-color: rgb(219, 128, 15);
+    border-right-color: rgb(219, 128, 15);
+    border-top-color: rgb(219, 128, 15);
+    border-bottom-color: rgb(219, 128, 15);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    -unity-text-outline-width: 0;
+}

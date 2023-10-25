@@ -56,8 +56,9 @@ public class PauseMenuController : MonoBehaviour
     private void PlayPressed()
     {
         //playerInput.SwitchCurrentActionMap("Player");
+        SoundManager.Instance.ResumeMusic();
         Time.timeScale = 1; 
-        Debug.Log("Pause Menu Play Pressed");
+        //Debug.Log("Pause Menu Play Pressed");
         gameObject.SetActive(false);
         GameStateController.isPaused = false;
     }
@@ -68,7 +69,7 @@ public class PauseMenuController : MonoBehaviour
     private void QuitPressed()
     {
         Debug.Log("Pause Menu Quit Pressed");
-        //Application.Quit(); 
+        Application.Quit(); 
     }
 
     /// <summary>
@@ -78,6 +79,8 @@ public class PauseMenuController : MonoBehaviour
     {
         Debug.Log("Pause Menu Return Pressed");
         Time.timeScale = 1.0f;
-        SceneManager.LoadSceneAsync("KitchenHub");
+        SoundManager.Instance.StopMusic();
+        GameStateController.isPaused = false;
+        SceneManager.LoadScene("KitchenHub");
     }
 }

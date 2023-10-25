@@ -10,7 +10,9 @@ public class GameStateController : MonoBehaviour
     private InputSystem PauseControls;
     private InputAction pauseAction;
     public static bool isPaused = false;
+    public static int PizzasDropped = 0;
     public static int CoinsCollected = 0;
+    public static int startCoins = 0; 
 
 
     private void Awake()
@@ -34,6 +36,9 @@ public class GameStateController : MonoBehaviour
     void Start()
     {
         pauseMenu.SetActive(false);
+        startCoins = CoinsCollected;
+       // Debug.Log("Current Coins = " + CoinsCollected);
+        //Debug.Log("Start Coins = " +  startCoins);
     }
 
     public void TogglePause(InputAction.CallbackContext context)
@@ -42,18 +47,20 @@ public class GameStateController : MonoBehaviour
         {
             if (pauseMenu.activeSelf)
             {
+                SoundManager.Instance.ResumeMusic();
                 Time.timeScale = 1.0f;
                 pauseMenu.SetActive(false);
                 isPaused = false;
             }
             else
             {
+                SoundManager.Instance.PauseMusic();
                 pauseMenu.SetActive(true);
                 Time.timeScale = 0;
                 isPaused = true;
                 //Disable player input
             }
-            Debug.Log("PAUSE TOGGLED");
+            //Debug.Log("PAUSE TOGGLED");
         }
     }
 

@@ -9,6 +9,8 @@ public class RestartLevel : MonoBehaviour
     {
         //Gets current level index
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //Debug.Log("Coins before restart " + GameStateController.CoinsCollected);
+        GameStateController.CoinsCollected = GameStateController.startCoins;
         //Loads current scene again. 
         SceneManager.LoadScene(currentSceneIndex);
     }

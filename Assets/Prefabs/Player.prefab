@@ -369,6 +369,7 @@ MonoBehaviour:
   verticalKnockbackForce: 5
   stunDuration: 0.5
   damageSound: {fileID: 8300000, guid: 0fbaa929cbd08a2428983e070b91ec9e, type: 3}
+  splatSound: {fileID: 8300000, guid: ba33c54536f22d340be427e8beb9ef47, type: 3}
   attackPower: 5
   attackTime: 0.3
   attackPoint: {fileID: 3490656253089250169}
@@ -377,7 +378,8 @@ MonoBehaviour:
   attackHitParticles: {fileID: 4037194952260995850, guid: e42db2bf2156d7840a2fe9e95c0bdab2, type: 3}
   hitStopController: {fileID: 0}
   cutterSound: {fileID: 8300000, guid: 53becf750d8595f429f10a450ccd5186, type: 3}
-  whipSound: {fileID: 8300000, guid: 383f14e8a3478b64dbbf135d1134514f, type: 3}
+  whipSound: {fileID: 8300000, guid: 8cd23845dcf8d394e9ab16c2c04f08d9, type: 3}
+  SwitchSound: {fileID: 8300000, guid: 741a464f7aed42645bfb61d2e44bdfa5, type: 3}
   hudRef: {fileID: 0}
   isInvulnerable: 0
   invulnerableTimer: 0

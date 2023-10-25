@@ -67,3 +67,4 @@ MonoBehaviour:
   - {fileID: 332528386, guid: 4fe24d7be378efb4c95c3b5856280d3d, type: 3}
   - {fileID: -339731499, guid: 4fe24d7be378efb4c95c3b5856280d3d, type: 3}
   - {fileID: -2104875296, guid: 4fe24d7be378efb4c95c3b5856280d3d, type: 3}
+  fadeDuration: 1

@@ -9,9 +9,12 @@ public class PlayerDeathState : PlayerBaseState
     float deathTime = .5f;
     public override void EnterState(PlayerStateManager player)
     {
+        //Stop music
+        SoundManager.Instance.musicSource.Pause();
         //Player the defeat animation
         //Player is still experiencing knockback force
         player.animator.SetBool("IsDefeated", true);
+        GameStateController.PizzasDropped += 1;
         Debug.Log("DEATH STATE");
         
     }
@@ -43,6 +46,8 @@ public class PlayerDeathState : PlayerBaseState
 
     public override void OnTriggerEnter(PlayerStateManager player, Collider2D other)
     {
-        throw new System.NotImplementedException();
+        
     }
+
+   
 }

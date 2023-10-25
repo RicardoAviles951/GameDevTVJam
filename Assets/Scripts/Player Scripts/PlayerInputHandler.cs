@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -14,12 +16,12 @@ public class PlayerInputHandler : MonoBehaviour
     {
         playerControls = new InputSystem();
     }
+    
 
     void OnEnable()
     {
         //Enables player controls as part of Unity input system.
         playerControls.Player.Enable();
-        
         //Cache individual actions
         moveAction    = playerControls.Player.Move;
         jumpAction    = playerControls.Player.Jump;
@@ -41,10 +43,12 @@ public class PlayerInputHandler : MonoBehaviour
         if(GameStateController.isPaused == true )
         {
             playerControls.Player.Disable();
+            //Debug.Log("Controls disabled");
         }
         else
         {
             playerControls.Player.Enable();
+           // Debug.Log("Controls Enabled");
         }
     }
 
@@ -78,6 +82,7 @@ public class PlayerInputHandler : MonoBehaviour
         {
             //Gets current level index
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            GameStateController.CoinsCollected = GameStateController.startCoins;
         //Loads current scene again. 
         SceneManager.LoadScene(currentSceneIndex);
         }

@@ -24,10 +24,14 @@ public class GoalManager : MonoBehaviour
             
             if(goalReached == false)
             {
-                StartCoroutine(playerHudManager.FadeIn(0, .5f));
+                if(playerHudManager != null) 
+                {
+                    StartCoroutine(playerHudManager.FadeIn(0, .5f));
+                }
+                
                 fadeController.FadeOut();
                 SoundManager.Instance.PlaySound(goalSound);
-                Debug.Log("Goal Collider: Player Entered");
+                //Debug.Log("Goal Collider: Player Entered");
                 goalReached = true;
                 StartCoroutine(LoadNextLevel());
             }
@@ -37,11 +41,10 @@ public class GoalManager : MonoBehaviour
 
     public IEnumerator LoadNextLevel()
     {
-        Debug.Log("Loading next level...");
+        //Debug.Log("Loading next level...");
         yield return new WaitForSeconds(1); //Waits one second
         Scene currentScene = SceneManager.GetActiveScene();//Gets active scene
         int index = currentScene.buildIndex;//Gets scene index
         SceneManager.LoadScene(index + 1);//Loads next scene
-
     }
 }

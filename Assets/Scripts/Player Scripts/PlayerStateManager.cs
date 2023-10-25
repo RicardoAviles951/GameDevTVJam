@@ -12,13 +12,14 @@ public class PlayerStateManager : MonoBehaviour
         cutter,
         whip
     }
+
     PlayerBaseState currentState;
-    public PlayerIdleState idleState = new PlayerIdleState();
-    public PlayerMoveState moveState = new PlayerMoveState();
-    public PlayerAttackState attackState = new PlayerAttackState();
-    public PlayerWhipAttackState whipState = new PlayerWhipAttackState();
+    public PlayerIdleState idleState           = new PlayerIdleState();
+    public PlayerMoveState moveState           = new PlayerMoveState();
+    public PlayerAttackState attackState       = new PlayerAttackState();
+    public PlayerWhipAttackState whipState     = new PlayerWhipAttackState();
     public PlayerKnockbackState knockbackState = new PlayerKnockbackState();
-    public PlayerDeathState deathState = new PlayerDeathState();
+    public PlayerDeathState deathState         = new PlayerDeathState();
 
     [HideInInspector]
     public PlayerInputHandler playerInput;
@@ -63,6 +64,7 @@ public class PlayerStateManager : MonoBehaviour
     public float verticalKnockbackForce = 5.0f;
     public float stunDuration = 0.5f;
     public AudioClip damageSound;
+    public AudioClip splatSound;
 
     [Header("Attack Variables")]
     public int attackPower = 5;
@@ -75,6 +77,7 @@ public class PlayerStateManager : MonoBehaviour
     public HitStopController hitStopController;
     public AudioClip cutterSound;
     public AudioClip whipSound;
+    public AudioClip SwitchSound;
     public bool Attacking { get; set; } = false;
     public AttackType attackType { get; set; } = AttackType.cutter;
     [HideInInspector]
@@ -130,6 +133,7 @@ public class PlayerStateManager : MonoBehaviour
 
         currentState       = moveState;
         currentState.EnterState(this);
+       // Debug.Log("Current State: " +  currentState);
     }
 
     // Update is called once per frame
@@ -226,6 +230,9 @@ public class PlayerStateManager : MonoBehaviour
         //Debug.Log("Dust released");
     }
 
-    
+    public void PizzaSplat()
+    {
+        SoundManager.Instance.PlaySound(splatSound);
+    }
 }
 
