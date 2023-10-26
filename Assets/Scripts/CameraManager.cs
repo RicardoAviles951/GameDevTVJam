@@ -23,11 +23,11 @@ public class CameraManager : MonoBehaviour
     private void Awake()
     {
         
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else { instance = this; DontDestroyOnLoad(this.gameObject); }
+        //if (instance != null && instance != this)
+        //{
+        //    Destroy(this.gameObject);
+        //}
+        //else { instance = this; DontDestroyOnLoad(this.gameObject); }
 
         //Set new camera position
         position = new Vector3(0,0,-10);
@@ -35,11 +35,12 @@ public class CameraManager : MonoBehaviour
         _camera = Camera.main;
         //Cache camera transform
         camTransform = _camera.transform;
+        position = new Vector3(0, 0, -10);
     }
     // Start is called before the first frame update
     void Start()
     {
-        position = new Vector3(0, 0, -10);
+        
         camTransform.position = position;
     }
 
